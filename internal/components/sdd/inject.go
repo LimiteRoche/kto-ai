@@ -58,7 +58,7 @@ type InjectOptions struct {
 	Profiles []model.Profile
 
 	// PreserveOpenCodeOrchestratorPrompt keeps the existing
-	// opencode.json agent.gentle-orchestrator.prompt value during sync.
+	// opencode.json agent.kto-orchestrator.prompt value during sync.
 	// Used by external-single-active profile strategy integrations where
 	// external tools extend orchestrator policy/prompt at runtime.
 	PreserveOpenCodeOrchestratorPrompt bool
@@ -330,7 +330,7 @@ func Inject(homeDir string, adapter agents.Adapter, sddMode model.SDDModeID, opt
 
 	// 1. Inject SDD orchestrator into the global system prompt for agents that
 	// rely on prompt files. OpenCode and Kilocode are handled differently: their
-	// orchestrator instructions must be scoped to the OpenCode gentle-orchestrator agent only,
+	// orchestrator instructions must be scoped to the OpenCode kto-orchestrator agent only,
 	// otherwise the SDD phase sub-agents inherit coordinator-only delegation rules.
 	if adapter.Agent() != model.AgentOpenCode && adapter.Agent() != model.AgentKilocode {
 		switch adapter.SystemPromptStrategy() {
@@ -447,7 +447,7 @@ func Inject(homeDir string, adapter agents.Adapter, sddMode model.SDDModeID, opt
 		}
 	}
 
-	// 2b. OpenCode /sdd-* commands reference agent: gentle-orchestrator.
+	// 2b. OpenCode /sdd-* commands reference agent: kto-orchestrator.
 	// Ensure that agent is present even when persona component is not installed.
 	//
 	// mergedSettingsBytes holds the final merged opencode.json bytes produced by
@@ -760,13 +760,13 @@ func Inject(homeDir string, adapter agents.Adapter, sddMode model.SDDModeID, opt
 			}
 		}
 
-		if !hasOpenCodeAgentKey(settingsText, "gentle-orchestrator") {
+		if !hasOpenCodeAgentKey(settingsText, "kto-orchestrator") {
 			// In-memory check failed — try reading from disk as last resort.
 			if diskBytes, readErr := os.ReadFile(settingsPath); readErr == nil {
 				settingsText = string(diskBytes)
 			}
-			if !hasOpenCodeAgentKey(settingsText, "gentle-orchestrator") {
-				return InjectionResult{}, fmt.Errorf("post-check: %q missing gentle-orchestrator agent definition — OpenCode /sdd-* commands will fail", settingsPath)
+			if !hasOpenCodeAgentKey(settingsText, "kto-orchestrator") {
+				return InjectionResult{}, fmt.Errorf("post-check: %q missing kto-orchestrator agent definition — OpenCode /sdd-* commands will fail", settingsPath)
 			}
 		}
 		if hasOpenCodeAgentKey(settingsText, "sdd-orchestrator") {
@@ -850,7 +850,7 @@ func inlineOpenCodeSDDPrompts(overlayBytes []byte, homeDir, settingsPath string,
 
 	// Inline the orchestrator prompt (always inlined, not a file reference),
 	// unless an external strategy requested preserving the existing prompt.
-	orchestratorRaw, ok := agentsMap["gentle-orchestrator"]
+	orchestratorRaw, ok := agentsMap["kto-orchestrator"]
 	if !ok {
 		return overlayBytes, nil
 	}
@@ -859,7 +859,7 @@ func inlineOpenCodeSDDPrompts(overlayBytes []byte, homeDir, settingsPath string,
 		return overlayBytes, nil
 	}
 	if preserveExistingOrchestratorPrompt {
-		existingPrompt, err := readOpenCodeAgentPrompt(settingsPath, "gentle-orchestrator")
+		existingPrompt, err := readOpenCodeAgentPrompt(settingsPath, "kto-orchestrator")
 		if err != nil {
 			return nil, err
 		}
@@ -1035,9 +1035,9 @@ func migratePreservedOpenCodeOrchestratorPrompt(prompt string) string {
 
 	replacer := strings.NewReplacer(
 		"Bind this to the dedicated `sdd-orchestrator` agent only.",
-		"Bind this to the dedicated `gentle-orchestrator` agent only.",
+		"Bind this to the dedicated `kto-orchestrator` agent only.",
 		"agent.sdd-orchestrator.model",
-		"agent.gentle-orchestrator.model",
+		"agent.kto-orchestrator.model",
 		"Before continuing with SDD, choose one option per group.\n",
 		"",
 		"Before continuing with SDD, choose one option per group.\r\n",
@@ -1742,7 +1742,7 @@ func stripOpenCodeNativeFallbackAgents(overlayBytes []byte) ([]byte, error) {
 	// Kilocode does not host the OpenCode provider relay that issues the opaque
 	// validator task, so it must not expose or authorize that OpenCode-only role.
 	delete(agents, opencode.ReviewValidatorAgent)
-	if orchestrator, ok := agents["gentle-orchestrator"].(map[string]any); ok {
+	if orchestrator, ok := agents["kto-orchestrator"].(map[string]any); ok {
 		if permission, ok := orchestrator["permission"].(map[string]any); ok {
 			if task, ok := permission["task"].(map[string]any); ok {
 				if replacement, ok := task["__replace__"].(map[string]any); ok {
@@ -2010,11 +2010,11 @@ func openCodeSettingsHasShare(settingsPath string) bool {
 
 // migrateLegacyOpenCodeSDDOrchestrator removes legacy or accidentally renamed
 // base OpenCode SDD conductor agents. The base SDD coordinator is now the
-// gentle-orchestrator primary agent; named profile agents such as
+// kto-orchestrator primary agent; named profile agents such as
 // sdd-orchestrator-cheap intentionally remain untouched because they are
 // generated profile-specific coordinators. The old OpenCode "gentleman" agent
 // key is revoked and is removed during sync; if it clearly contains the old SDD
-// conductor prompt and no gentle-orchestrator exists yet, its prompt is migrated
+// conductor prompt and no kto-orchestrator exists yet, its prompt is migrated
 // before the revoked key is deleted.
 func migrateLegacyOpenCodeSDDOrchestrator(baseJSON []byte) ([]byte, error) {
 	if len(strings.TrimSpace(string(baseJSON))) == 0 {
@@ -2046,8 +2046,8 @@ func migrateLegacyOpenCodeSDDOrchestrator(baseJSON []byte) ([]byte, error) {
 		hasLegacy = true
 	}
 
-	if _, hasGentleOrchestrator := agentsMap["gentle-orchestrator"]; !hasGentleOrchestrator && hasLegacy {
-		agentsMap["gentle-orchestrator"] = legacy
+	if _, hasGentleOrchestrator := agentsMap["kto-orchestrator"]; !hasGentleOrchestrator && hasLegacy {
+		agentsMap["kto-orchestrator"] = legacy
 	}
 	delete(agentsMap, "sdd-orchestrator")
 	if hasRevokedGentleman {
@@ -2764,7 +2764,7 @@ func injectModelAssignments(overlayBytes []byte, assignments map[string]model.Mo
 
 // normalizeOpenCodeSDDModelAssignments accepts the historical
 // sdd-orchestrator assignment key as an input alias, but writes it to the
-// current base coordinator key: gentle-orchestrator. Named profile keys remain unchanged.
+// current base coordinator key: kto-orchestrator. Named profile keys remain unchanged.
 func normalizeOpenCodeSDDModelAssignments(assignments map[string]model.ModelAssignment) map[string]model.ModelAssignment {
 	if len(assignments) == 0 {
 		return assignments
@@ -2773,7 +2773,7 @@ func normalizeOpenCodeSDDModelAssignments(assignments map[string]model.ModelAssi
 	if !hasLegacy {
 		return assignments
 	}
-	if _, hasGentleOrchestrator := assignments["gentle-orchestrator"]; hasGentleOrchestrator {
+	if _, hasGentleOrchestrator := assignments["kto-orchestrator"]; hasGentleOrchestrator {
 		return assignments
 	}
 
@@ -2784,7 +2784,7 @@ func normalizeOpenCodeSDDModelAssignments(assignments map[string]model.ModelAssi
 		}
 		normalized[key] = assignment
 	}
-	normalized["gentle-orchestrator"] = legacyAssignment
+	normalized["kto-orchestrator"] = legacyAssignment
 	return normalized
 }
 

@@ -80,7 +80,7 @@ func TestNormalizeInstallFlagsDefaults(t *testing.T) {
 			model.ComponentPermission,
 			model.ComponentGGA,
 			model.ComponentClaudeTheme,
-			model.ComponentOpenCodeGentleLogo,
+			model.ComponentOpenCodeKtoLogo,
 			model.ComponentPersona,
 		},
 	}
@@ -136,7 +136,7 @@ func TestNormalizeInstallFlagsFullPresetCustomPersonaKeepsPresetPolish(t *testin
 		}
 	}
 
-	for _, want := range []model.ComponentID{model.ComponentClaudeTheme, model.ComponentOpenCodeGentleLogo} {
+	for _, want := range []model.ComponentID{model.ComponentClaudeTheme, model.ComponentOpenCodeKtoLogo} {
 		found := false
 		for _, got := range input.Selection.Components {
 			if got == want {
@@ -153,13 +153,13 @@ func TestNormalizeInstallFlagsFullPresetCustomPersonaKeepsPresetPolish(t *testin
 func TestNormalizeInstallFlagsCustomAcceptsOptionalGentlemanInstallables(t *testing.T) {
 	input, err := NormalizeInstallFlags(InstallFlags{
 		Preset:     string(model.PresetCustom),
-		Components: []string{string(model.ComponentClaudeTheme), string(model.ComponentOpenCodeGentleLogo)},
+		Components: []string{string(model.ComponentClaudeTheme), string(model.ComponentOpenCodeKtoLogo)},
 	}, system.DetectionResult{})
 	if err != nil {
 		t.Fatalf("NormalizeInstallFlags() error = %v", err)
 	}
 
-	want := []model.ComponentID{model.ComponentClaudeTheme, model.ComponentOpenCodeGentleLogo}
+	want := []model.ComponentID{model.ComponentClaudeTheme, model.ComponentOpenCodeKtoLogo}
 	if !reflect.DeepEqual(input.Selection.Components, want) {
 		t.Fatalf("components = %#v, want %#v", input.Selection.Components, want)
 	}

@@ -48,44 +48,32 @@ var definitions = []Definition{
 	},
 }
 
-const gentleLogoPluginFile = "gentle-logo.tsx"
+const ktoLogoPluginFile = "kto-logo.tsx"
 
-const gentleLogoPluginSource = `// @ts-nocheck
+const ktoLogoPluginSource = `// @ts-nocheck
 /** @jsxImportSource @opentui/solid */
 import type { TuiPlugin } from "@opencode-ai/plugin/tui"
 import { useTerminalDimensions } from "@opentui/solid"
 import { createMemo } from "solid-js"
 
-const id = "gentle-logo"
+const id = "kto-logo"
 
-const roseArt = [
-  "             ⣠⣾⣷⣶⣦⣤⣤⣄⣠⣄⣀  ⢀⣀⣀",
-  "          ⢀⣴⣿⣿⠿⣋⣭⣭⣯⣭⣍⣭⣿⣟⠛⠛⠿⠿⣿⣷⣄",
-  "      ⢀⣴⣾⡟⢻⣿⡟⠁⣼⣿⠏⣵⢻⣿⣻⣿⣿⢿⡻⣿⣿⣶⡌⢿⣿⣷⣦⣤⡄",
-  "   ⣤⣶⣾⣿⣿⠏ ⠈⢿⣄ ⢹⣏⠠⠟⣾⣿⣿⣿⣿⣿⠷⣏⣼⠟⢡⣿⡟⠋⢻⣿⣿⡄",
-  "   ⠈⣿⣿⣿⣿⡆   ⣽⢧⡘⠈⠳⣦⣍⠛⠛⢦⣉⣴⣛⣫⣭⣴⡟⠋  ⣾⣿⣿⡿",
-  "   ⢀⠹⣿⣿⣿⣷⣤⡄ ⠋ ⠙⢆ ⣠⠴⠟⠛⣛⣛⣛⠟⠋⠁⠺⡇ ⣀⣴⣿⣿⡟⠁",
-  "   ⠈⣀⠈⠛⠷⠿⣿⣿⣷⣤⣀ ⢠⠋   ⠈⠉⠉    ⣠⣴⣥⠾⠛⠉⣰⣿⣷",
-  "          ⠹⣯⣝⠛⠛⠷⢶⣤⣤⣀   ⢀⡠⠖⠋⠉⢉⣀⣀⣴⣾⣿⠿⠟⠃ ⠠⠦",
-  "⠁       ⠖  ⠘⠻⢿⣦⣄⡀  ⠉⠛⢦⠠⢊⠤⠴⢒⣛⣛⣩⣽⡿⠟⠁⢀⡀",
-  "⠲⠶⣦⠴⠶⠶⠶⠶⡶⠶⢶⣤⣄⡀⠨⠭⠽⠟⣓⢦⣀⠈⢇⡥⠖⠛⠋⠉⠉⠉    ⠈  ⢠⡤",
-  "  ⠈⢷ ⠐⠂⢤⣽⣄ ⠰⡎⠙⠳⣄⡀ ⠈⢣⠘⢦⠋⣀⡬⠟⠛⠛⠉⢀⣀⣀⣠⡤⠄⠃",
-  "   ⠈⢳⣀⡒⠉⠉⣉⠙⡲⣽⣄ ⣏⠳⡄ ⠘⡇ ⡾⠁ ⢀⡤⠖⣻⣿⡏⢡⡎ ⠰⠄",
-  "     ⠛⠻⢦⣄⣉⡁⣀⣀⣈⣙⣺⣌⡇⢠⢀⡇⡾  ⣴⣿⡷⠊ ⢲⣠⠟",
-  "          ⠈⠉    ⠈⠳⡄⣸⢱⠇⢀⣰⣯⣭⣥⠭⠾⠛⠃",
-  "                  ⡷⠡⡯⢖⠉   ⢠⠤",
-  "                ⡠⢊⡴⠤⠂⠃ ⠒",
-  "             ⢀⡴⢪⠔⣉⠔⠋",
-  "               ⠐⠈",
+const ktoArt = [
+  "██╗  ██╗   ████████╗ ██████╗",
+  "██║ ██╔╝   ╚══██╔══╝██╔═══██╗",
+  "█████═╝  ██╗  ██║   ██║   ██║",
+  "██╔═██╗  ╚═╝  ██║   ██║   ██║",
+  "██║  ██╗      ██║   ╚██████╔╝",
+  "╚═╝  ╚═╝      ╚═╝    ╚═════╝",
 ]
 
-const compactArt = ["✦ Gentle AI ✦"]
+const compactArt = ["✦ k.to ✦"]
 
 const Logo = () => {
   const dim = useTerminalDimensions()
   const lines = createMemo(() => {
     const term = dim()
-    return term.height >= roseArt.length + 6 && term.width >= 64 ? roseArt : compactArt
+    return term.height >= ktoArt.length + 6 && term.width >= 64 ? ktoArt : compactArt
   })
 
   return (
@@ -109,7 +97,7 @@ const tui: TuiPlugin = async (api) => {
   })
 }
 
-const plugin = { id: "gentle-logo", tui }
+const plugin = { id: "kto-logo", tui }
 export default plugin
 `
 
@@ -146,8 +134,8 @@ func InstallPaths(homeDir string, selected []model.OpenCodeCommunityPluginID) ([
 
 	for _, id := range selected {
 		switch id {
-		case model.OpenCodePluginGentleLogo:
-			addPath(filepath.Join(opencodeDir, "tui-plugins", gentleLogoPluginFile))
+		case model.OpenCodePluginKtoLogo:
+			addPath(filepath.Join(opencodeDir, "tui-plugins", ktoLogoPluginFile))
 		default:
 			if _, ok := DefinitionFor(id); !ok {
 				return nil, fmt.Errorf("unknown OpenCode community plugin %q", id)
@@ -160,8 +148,8 @@ func InstallPaths(homeDir string, selected []model.OpenCodeCommunityPluginID) ([
 }
 
 func Install(homeDir string, id model.OpenCodeCommunityPluginID) (Result, error) {
-	if id == model.OpenCodePluginGentleLogo {
-		return installGentleLogo(homeDir)
+	if id == model.OpenCodePluginKtoLogo {
+		return installKtoLogo(homeDir)
 	}
 
 	def, ok := DefinitionFor(id)
@@ -183,14 +171,14 @@ func Install(homeDir string, id model.OpenCodeCommunityPluginID) (Result, error)
 	return Result{Changed: written, Files: []string{tuiPath}}, nil
 }
 
-func installGentleLogo(homeDir string) (Result, error) {
+func installKtoLogo(homeDir string) (Result, error) {
 	opencodeDir := filepath.Join(homeDir, ".config", "opencode")
-	pluginPath := filepath.Join(opencodeDir, "tui-plugins", gentleLogoPluginFile)
+	pluginPath := filepath.Join(opencodeDir, "tui-plugins", ktoLogoPluginFile)
 	tuiPath := filepath.Join(opencodeDir, "tui.json")
 
-	pluginWrite, err := filemerge.WriteFileAtomic(pluginPath, []byte(gentleLogoPluginSource), 0o644)
+	pluginWrite, err := filemerge.WriteFileAtomic(pluginPath, []byte(ktoLogoPluginSource), 0o644)
 	if err != nil {
-		return Result{}, fmt.Errorf("write Gentle Logo TUI plugin: %w", err)
+		return Result{}, fmt.Errorf("write k.to Logo TUI plugin: %w", err)
 	}
 	tuiChanged, err := ensureTUIPlugin(tuiPath, pluginPath)
 	if err != nil {

@@ -186,21 +186,21 @@ func TestOpenCodeOverlaysRenderBoundedReadOnlyReviewRoles(t *testing.T) {
 func assertOpenCodeTargetedValidator(t *testing.T, label string, agents map[string]any) {
 	t.Helper()
 
-	orchestrator, ok := agents["gentle-orchestrator"].(map[string]any)
+	orchestrator, ok := agents["kto-orchestrator"].(map[string]any)
 	if !ok {
-		t.Fatalf("%s missing gentle-orchestrator", label)
+		t.Fatalf("%s missing kto-orchestrator", label)
 	}
 	permission, ok := orchestrator["permission"].(map[string]any)
 	if !ok {
-		t.Fatalf("%s gentle-orchestrator permission = %#v, want object", label, orchestrator["permission"])
+		t.Fatalf("%s kto-orchestrator permission = %#v, want object", label, orchestrator["permission"])
 	}
 	task, ok := permission["task"].(map[string]any)
 	if !ok {
-		t.Fatalf("%s gentle-orchestrator permission.task = %#v, want object", label, permission["task"])
+		t.Fatalf("%s kto-orchestrator permission.task = %#v, want object", label, permission["task"])
 	}
 	allowlist, ok := task["__replace__"].(map[string]any)
 	if !ok || allowlist["review-validator"] != "allow" {
-		t.Fatalf("%s gentle-orchestrator does not allow task review-validator: %#v", label, task)
+		t.Fatalf("%s kto-orchestrator does not allow task review-validator: %#v", label, task)
 	}
 
 	validator, ok := agents["review-validator"].(map[string]any)
@@ -329,7 +329,7 @@ func TestKilocodeReviewSettingsMatchCurrentMainBaseline(t *testing.T) {
 	// "an installed published fix", states that an installed published
 	// prerelease or release candidate satisfies it, and draws the real
 	// boundary at unpublished code. Kilocode embeds the same orchestrator
-	// contract in `agent.gentle-orchestrator.prompt`, and that key is the only
+	// contract in `agent.kto-orchestrator.prompt`, and that key is the only
 	// difference in the rendered settings, so the hash moved a fourth time.
 	// Deliberate, not drift.
 	//
@@ -337,11 +337,11 @@ func TestKilocodeReviewSettingsMatchCurrentMainBaseline(t *testing.T) {
 	// contract gained the byte-identical "SDD Edit-Authority Consent Relay
 	// (MANDATORY)" clause teaching the lossless relay of the typed
 	// gentle-ai.sdd-integration.consent/v1 envelope. Kilocode embeds the same
-	// orchestrator contract in `agent.gentle-orchestrator.prompt`, so the
+	// orchestrator contract in `agent.kto-orchestrator.prompt`, so the
 	// hash moved a fifth time. Deliberate, not drift.
 	//
 	// OpenCode Desktop delegation visibility (#633): Kilocode renders the same
-	// OpenCode orchestrator asset in `agent.gentle-orchestrator.prompt`, so the
+	// OpenCode orchestrator asset in `agent.kto-orchestrator.prompt`, so the
 	// new assistant-visible native delegation status lines move this hash too.
 	// Deliberate, not drift.
 	//
@@ -402,7 +402,7 @@ func TestKilocodeReviewSettingsMatchCurrentMainBaseline(t *testing.T) {
 	// #3249 registers Pi as an immutable-reviewer runtime in the shared
 	// contract's advertised-runtimes paragraph, so the hash moved.
 	// Deliberate, not drift.
-	const want = "c478b283aeceb83e3c5d74453a0ecd7a66d154ed2d7ef84337f8ccc60a916966"
+	const want = "b52d01121f1ed5940bf524cb0a9a386471144da4ca120fe9e3181a145d146053"
 	if got != want {
 		t.Fatalf("Kilocode settings SHA-256 = %s, want current-main baseline %s", got, want)
 	}
@@ -707,7 +707,7 @@ func readGentleOrchestratorPrompt(t *testing.T, settingsPath string) string {
 		t.Fatal(err)
 	}
 	agentsMap := root["agent"].(map[string]any)
-	orchestrator := agentsMap["gentle-orchestrator"].(map[string]any)
+	orchestrator := agentsMap["kto-orchestrator"].(map[string]any)
 	return orchestrator["prompt"].(string)
 }
 

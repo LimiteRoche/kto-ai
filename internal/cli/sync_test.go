@@ -937,7 +937,7 @@ func TestRunSyncRefreshesPersistedVisualComponents(t *testing.T) {
 		SelectionConfigured: true,
 		Components: []model.ComponentID{
 			model.ComponentClaudeTheme,
-			model.ComponentOpenCodeGentleLogo,
+			model.ComponentOpenCodeKtoLogo,
 		},
 		Persona: "neutral",
 	}); err != nil {
@@ -958,7 +958,7 @@ func TestRunSyncRefreshesPersistedVisualComponents(t *testing.T) {
 	// a first sync of a purely visual selection still delivers it (issue #1794).
 	wantFiles := []string{
 		filepath.Join(home, ".claude", "themes", "gentleman.json"),
-		filepath.Join(home, ".config", "opencode", "tui-plugins", "gentle-logo.tsx"),
+		filepath.Join(home, ".config", "opencode", "tui-plugins", "kto-logo.tsx"),
 		filepath.Join(home, ".config", "opencode", "tui.json"),
 		filepath.Join(home, ".claude", "CLAUDE.md"),
 		filepath.Join(home, ".config", "opencode", "opencode.json"),
@@ -2177,14 +2177,14 @@ func TestRunSyncAppliesManagedFilesystemChanges(t *testing.T) {
 	if _, ok := agentsMap["review-validator"].(map[string]any); !ok {
 		t.Fatalf("sync did not add review-validator: %#v", agentsMap)
 	}
-	orchestrator := agentsMap["gentle-orchestrator"].(map[string]any)
+	orchestrator := agentsMap["kto-orchestrator"].(map[string]any)
 	permission := orchestrator["permission"].(map[string]any)
 	allowlist := permission["task"].(map[string]any)
 	if replacement, ok := allowlist["__replace__"].(map[string]any); ok {
 		allowlist = replacement
 	}
 	if allowlist["review-validator"] != "allow" {
-		t.Fatalf("sync did not authorize gentle-orchestrator -> review-validator: %#v", allowlist)
+		t.Fatalf("sync did not authorize kto-orchestrator -> review-validator: %#v", allowlist)
 	}
 	if _, err := os.Stat(legacyPluginPath); !os.IsNotExist(err) {
 		t.Errorf("expected sync to remove legacy OpenCode plugin %q; stat err = %v", legacyPluginPath, err)
@@ -2978,11 +2978,11 @@ func TestRunSyncExternalSingleActiveSkipsDetectAndPreservesOrchestratorPrompt(t 
 	if strings.Contains(settingsText, "agent.sdd-orchestrator.model") {
 		t.Fatalf("external-single-active sync preserved stale sdd-orchestrator model assignment key")
 	}
-	if !strings.Contains(settingsText, "Bind this to the dedicated `gentle-orchestrator` agent only.") {
-		t.Fatalf("external-single-active sync did not migrate binding text to gentle-orchestrator")
+	if !strings.Contains(settingsText, "Bind this to the dedicated `kto-orchestrator` agent only.") {
+		t.Fatalf("external-single-active sync did not migrate binding text to kto-orchestrator")
 	}
-	if !strings.Contains(settingsText, "agent.gentle-orchestrator.model") {
-		t.Fatalf("external-single-active sync did not migrate model assignment key to gentle-orchestrator")
+	if !strings.Contains(settingsText, "agent.kto-orchestrator.model") {
+		t.Fatalf("external-single-active sync did not migrate model assignment key to kto-orchestrator")
 	}
 	if strings.Contains(settingsText, "\"sdd-onboard-cheap\"") {
 		t.Fatalf("external-single-active should not auto-detect/regenerate suffixed profiles")
@@ -3102,7 +3102,7 @@ func TestRunSyncWithSelection_WritesExpectedFiles(t *testing.T) {
 		t.Fatalf("read synced OpenCode apply command: %v", err)
 	}
 	for name, content := range map[string]string{
-		"orchestrator": settings.Agent["gentle-orchestrator"].Prompt,
+		"orchestrator": settings.Agent["kto-orchestrator"].Prompt,
 		"post-apply":   string(applyPayload),
 	} {
 		// The identity must be OpenCode's own: these are the exact bytes an
@@ -3192,7 +3192,7 @@ func TestRunSyncWithSelection_IsIdempotent(t *testing.T) {
 		t.Fatalf("run 1: FilesChanged = 0, expected > 0")
 	}
 	firstSettings, _ := os.ReadFile(settingsPath)
-	if !bytes.Contains(firstSettings, []byte(`"default_agent": "gentle-orchestrator"`)) {
+	if !bytes.Contains(firstSettings, []byte(`"default_agent": "kto-orchestrator"`)) {
 		t.Fatalf("TUI sync did not overwrite default_agent: %s", firstSettings)
 	}
 
@@ -3852,7 +3852,7 @@ func TestRunSyncDoesNotOverridePersistedAssignmentsOnSecondSync(t *testing.T) {
 		t.Fatalf("RunSync(1) error = %v", err)
 	}
 	firstSettings, _ := os.ReadFile(settingsPath)
-	if !bytes.Contains(firstSettings, []byte(`"default_agent": "gentle-orchestrator"`)) {
+	if !bytes.Contains(firstSettings, []byte(`"default_agent": "kto-orchestrator"`)) {
 		t.Fatalf("CLI sync did not overwrite default_agent: %s", firstSettings)
 	}
 

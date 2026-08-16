@@ -1221,10 +1221,10 @@ func (s componentSyncStep) Run() error {
 		}
 		return nil
 
-	case model.ComponentOpenCodeGentleLogo:
-		res, err := opencodeplugin.Install(s.homeDir, model.OpenCodePluginGentleLogo)
+	case model.ComponentOpenCodeKtoLogo:
+		res, err := opencodeplugin.Install(s.homeDir, model.OpenCodePluginKtoLogo)
 		if err != nil {
-			return fmt.Errorf("sync OpenCode Gentle Logo plugin: %w", err)
+			return fmt.Errorf("sync OpenCode k.to Logo plugin: %w", err)
 		}
 		s.countChanged(boolToInt(res.Changed), res.Files...)
 		return nil

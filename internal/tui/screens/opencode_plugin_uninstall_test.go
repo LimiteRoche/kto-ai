@@ -160,13 +160,13 @@ func TestRenderOpenCodePluginUninstallResultErrorShowsErrorMessage(t *testing.T)
 	}
 }
 
-func TestRenderOpenCodePluginUninstallResultGentleLogoShowsTSX(t *testing.T) {
+func TestRenderOpenCodePluginUninstallResultKtoLogoShowsTSX(t *testing.T) {
 	out := RenderOpenCodePluginUninstallResult(opencodeplugin.UninstallResult{
-		PluginID: model.OpenCodePluginGentleLogo,
-		TSXPath:  "/home/me/.config/opencode/tui-plugins/gentle-logo.tsx",
+		PluginID: model.OpenCodePluginKtoLogo,
+		TSXPath:  "/home/me/.config/opencode/tui-plugins/kto-logo.tsx",
 	}, nil)
-	if !strings.Contains(out, "gentle-logo.tsx") {
-		t.Fatalf("GentleLogo result screen missing TSX path; output:\n%s", out)
+	if !strings.Contains(out, "kto-logo.tsx") {
+		t.Fatalf("KtoLogo result screen missing TSX path; output:\n%s", out)
 	}
 }
 

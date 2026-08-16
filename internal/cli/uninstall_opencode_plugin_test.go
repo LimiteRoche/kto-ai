@@ -57,15 +57,15 @@ func TestParseUninstallOpenCodePluginFlagsAssignedFalseDoesNotBypassConfirmation
 	}
 }
 
-func TestParseUninstallOpenCodePluginFlagsAcceptsGentleLogo(t *testing.T) {
+func TestParseUninstallOpenCodePluginFlagsAcceptsKtoLogo(t *testing.T) {
 	t.Parallel()
 
-	flags, err := ParseUninstallOpenCodePluginFlags([]string{"gentle-logo"})
+	flags, err := ParseUninstallOpenCodePluginFlags([]string{"kto-logo"})
 	if err != nil {
-		t.Fatalf("ParseUninstallOpenCodePluginFlags(gentle-logo) unexpected error: %v", err)
+		t.Fatalf("ParseUninstallOpenCodePluginFlags(kto-logo) unexpected error: %v", err)
 	}
-	if flags.PluginID != model.OpenCodePluginGentleLogo {
-		t.Fatalf("PluginID = %q, want %q", flags.PluginID, model.OpenCodePluginGentleLogo)
+	if flags.PluginID != model.OpenCodePluginKtoLogo {
+		t.Fatalf("PluginID = %q, want %q", flags.PluginID, model.OpenCodePluginKtoLogo)
 	}
 }
 
@@ -82,7 +82,7 @@ func TestParseUninstallOpenCodePluginFlagsRejectsUnknownID(t *testing.T) {
 	for _, valid := range []string{
 		"sub-agent-statusline",
 		"sdd-engram-plugin",
-		"gentle-logo",
+		"kto-logo",
 	} {
 		if !strings.Contains(err.Error(), valid) {
 			t.Fatalf("error %q should mention valid id %q", err, valid)
@@ -137,10 +137,10 @@ func TestRenderUninstallOpenCodePluginReportSurfacesTSXPath(t *testing.T) {
 	t.Parallel()
 
 	out := RenderUninstallOpenCodePluginReport(opencodeplugin.UninstallResult{
-		PluginID: model.OpenCodePluginGentleLogo,
-		TSXPath:  "/home/me/.config/opencode/tui-plugins/gentle-logo.tsx",
+		PluginID: model.OpenCodePluginKtoLogo,
+		TSXPath:  "/home/me/.config/opencode/tui-plugins/kto-logo.tsx",
 	})
-	if !strings.Contains(out, "gentle-logo.tsx") {
+	if !strings.Contains(out, "kto-logo.tsx") {
 		t.Fatalf("report missing TSX path; got:\n%s", out)
 	}
 }
@@ -245,16 +245,16 @@ type ioErrHome string
 
 func (e ioErrHome) Error() string { return string(e) }
 
-// TestPromptUninstallOpenCodePluginConfirmGentleLogoBranch exercises the
+// TestPromptUninstallOpenCodePluginConfirmKtoLogoBranch exercises the
 // !hasDef branch of promptUninstallOpenCodePluginConfirm (B-503). For the
-// built-in GentleLogo, the prompt must still surface Layer 1 (the tui.json
+// built-in KtoLogo, the prompt must still surface Layer 1 (the tui.json
 // entry removal that always runs) and additively disclose the .tsx removal,
 // not claim "Layer 1 (only)".
-func TestPromptUninstallOpenCodePluginConfirmGentleLogoBranch(t *testing.T) {
+func TestPromptUninstallOpenCodePluginConfirmKtoLogoBranch(t *testing.T) {
 	t.Parallel()
 
 	var stdout bytes.Buffer
-	ok, err := promptUninstallOpenCodePluginConfirm(model.OpenCodePluginGentleLogo, &stdout, strings.NewReader("yes\n"))
+	ok, err := promptUninstallOpenCodePluginConfirm(model.OpenCodePluginKtoLogo, &stdout, strings.NewReader("yes\n"))
 	if err != nil {
 		t.Fatalf("prompt error = %v", err)
 	}
@@ -263,20 +263,20 @@ func TestPromptUninstallOpenCodePluginConfirmGentleLogoBranch(t *testing.T) {
 	}
 	out := stdout.String()
 	wantSubstrings := []string{
-		"Gentle Logo",
+		"k.to Logo",
 		"Layer 1: removes entry from ~/.config/opencode/tui.json",
-		"Plus: removes the local .tsx file ~/.config/opencode/tui-plugins/gentle-logo.tsx",
+		"Plus: removes the local .tsx file ~/.config/opencode/tui-plugins/kto-logo.tsx",
 	}
 	for _, want := range wantSubstrings {
 		if !strings.Contains(out, want) {
-			t.Fatalf("GentleLogo prompt missing %q; output:\n%s", want, out)
+			t.Fatalf("KtoLogo prompt missing %q; output:\n%s", want, out)
 		}
 	}
 	// The deprecated "Layer 1 (only)" wording must not appear.
 	if strings.Contains(out, "Layer 1 (only)") {
-		t.Fatalf("GentleLogo prompt must not advertise Layer 1 (only); output:\n%s", out)
+		t.Fatalf("KtoLogo prompt must not advertise Layer 1 (only); output:\n%s", out)
 	}
-	// NPM-only layers must not appear for GentleLogo.
+	// NPM-only layers must not appear for KtoLogo.
 	npmOnlySubstrings := []string{
 		"Layer 2: removes",
 		"Layer 3: removes",
@@ -284,7 +284,7 @@ func TestPromptUninstallOpenCodePluginConfirmGentleLogoBranch(t *testing.T) {
 	}
 	for _, forbidden := range npmOnlySubstrings {
 		if strings.Contains(out, forbidden) {
-			t.Fatalf("GentleLogo prompt must not advertise %s; output:\n%s", forbidden, out)
+			t.Fatalf("KtoLogo prompt must not advertise %s; output:\n%s", forbidden, out)
 		}
 	}
 }

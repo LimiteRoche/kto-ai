@@ -75,7 +75,7 @@ func TestOpenCodeBackgroundPolicyInjectionThroughPublicBoundary(t *testing.T) {
 				t.Fatalf("Inject(off) error = %v", err)
 			}
 			settingsPath := adapter.SettingsPath(home)
-			off := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "gentle-orchestrator")
+			off := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "kto-orchestrator")
 			if strings.Contains(off, openCodeBackgroundPolicyMarker) {
 				t.Fatal("default injection unexpectedly included background policy")
 			}
@@ -84,7 +84,7 @@ func TestOpenCodeBackgroundPolicyInjectionThroughPublicBoundary(t *testing.T) {
 			if _, err := Inject(home, adapter, mode, opts); err != nil {
 				t.Fatalf("Inject(on) error = %v", err)
 			}
-			first := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "gentle-orchestrator")
+			first := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "kto-orchestrator")
 			if strings.Count(first, openCodeBackgroundPolicyMarker) != 1 || strings.Count(first, openCodeBackgroundPolicyEnd) != 1 {
 				t.Fatal("enabled injection did not compose background policy exactly once")
 			}
@@ -92,7 +92,7 @@ func TestOpenCodeBackgroundPolicyInjectionThroughPublicBoundary(t *testing.T) {
 			if _, err := Inject(home, adapter, mode, opts); err != nil {
 				t.Fatalf("Inject(repeat) error = %v", err)
 			}
-			repeated := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "gentle-orchestrator")
+			repeated := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "kto-orchestrator")
 			if strings.Count(repeated, openCodeBackgroundPolicyMarker) != 1 || strings.Count(repeated, openCodeBackgroundPolicyEnd) != 1 {
 				t.Fatal("repeated enabled injection duplicated background policy")
 			}
@@ -148,7 +148,7 @@ func TestOpenCodeBackgroundPolicyRoutesThroughNamedProfileRendering(t *testing.T
 	if strings.Count(on, openCodeBackgroundPolicyMarker) != 1 || strings.Count(on, openCodeBackgroundPolicyEnd) != 1 {
 		t.Fatal("enabled named profile rendering did not compose the policy exactly once")
 	}
-	for _, want := range []string{"gentle-orchestrator", "sdd-init-rapid", "openai/gpt-5.1"} {
+	for _, want := range []string{"kto-orchestrator", "sdd-init-rapid", "openai/gpt-5.1"} {
 		if !strings.Contains(on, want) {
 			t.Fatalf("enabled named profile rendering lost substitution %q", want)
 		}
@@ -163,8 +163,8 @@ func TestOpenCodeBackgroundPolicyPreservesPromptBranches(t *testing.T) {
 		wantFallback bool
 	}{
 		{
-			name:       "gentle-orchestrator",
-			seed:       `{"agent":{"gentle-orchestrator":{"prompt":"CUSTOM_GENTLE"}}}`,
+			name:       "kto-orchestrator",
+			seed:       `{"agent":{"kto-orchestrator":{"prompt":"CUSTOM_GENTLE"}}}`,
 			wantCustom: "CUSTOM_GENTLE",
 		},
 		{
@@ -174,7 +174,7 @@ func TestOpenCodeBackgroundPolicyPreservesPromptBranches(t *testing.T) {
 		},
 		{
 			name:         "malformed prompt",
-			seed:         `{"agent":{"gentle-orchestrator":{"prompt":42}}}`,
+			seed:         `{"agent":{"kto-orchestrator":{"prompt":42}}}`,
 			wantFallback: true,
 		},
 		{
@@ -203,7 +203,7 @@ func TestOpenCodeBackgroundPolicyPreservesPromptBranches(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Inject() error = %v", err)
 			}
-			prompt := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "gentle-orchestrator")
+			prompt := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "kto-orchestrator")
 			if strings.Count(prompt, openCodeBackgroundPolicyMarker) != 1 || strings.Count(prompt, openCodeBackgroundPolicyEnd) != 1 {
 				t.Fatalf("background policy markers are not exactly once: %q", prompt)
 			}
@@ -224,7 +224,7 @@ func TestOpenCodeBackgroundPolicyPreservedPromptFollowsOnOffTransitions(t *testi
 	if err := os.MkdirAll(filepath.Dir(settingsPath), 0o755); err != nil {
 		t.Fatalf("MkdirAll(settings) error = %v", err)
 	}
-	if err := os.WriteFile(settingsPath, []byte(`{"agent":{"gentle-orchestrator":{"prompt":"CUSTOM_CONTENT"}}}`), 0o644); err != nil {
+	if err := os.WriteFile(settingsPath, []byte(`{"agent":{"kto-orchestrator":{"prompt":"CUSTOM_CONTENT"}}}`), 0o644); err != nil {
 		t.Fatalf("WriteFile(settings) error = %v", err)
 	}
 
@@ -236,7 +236,7 @@ func TestOpenCodeBackgroundPolicyPreservedPromptFollowsOnOffTransitions(t *testi
 		}); err != nil {
 			t.Fatalf("Inject(include=%t) error = %v", include, err)
 		}
-		return agentPrompt(t, readOpenCodeAgents(t, settingsPath), "gentle-orchestrator")
+		return agentPrompt(t, readOpenCodeAgents(t, settingsPath), "kto-orchestrator")
 	}
 
 	if prompt := inject(false); strings.Contains(prompt, openCodeBackgroundPolicyMarker) || !strings.Contains(prompt, "CUSTOM_CONTENT") {
@@ -258,7 +258,7 @@ func TestOpenCodeBackgroundPolicyOffRemovesSeededOwnedBlockOnly(t *testing.T) {
 		t.Fatalf("MkdirAll(settings) error = %v", err)
 	}
 	seedPrompt := "BEFORE_CUSTOM\n\n" + mustReadOpenCodeBackgroundPolicy() + "\n\nAFTER_CUSTOM"
-	seed := `{"agent":{"gentle-orchestrator":{"prompt":` + strconv.Quote(seedPrompt) + `}}}`
+	seed := `{"agent":{"kto-orchestrator":{"prompt":` + strconv.Quote(seedPrompt) + `}}}`
 	if err := os.WriteFile(settingsPath, []byte(seed), 0o644); err != nil {
 		t.Fatalf("WriteFile(settings) error = %v", err)
 	}
@@ -266,7 +266,7 @@ func TestOpenCodeBackgroundPolicyOffRemovesSeededOwnedBlockOnly(t *testing.T) {
 	if _, err := Inject(home, adapter, model.SDDModeSingle, InjectOptions{PreserveOpenCodeOrchestratorPrompt: true}); err != nil {
 		t.Fatalf("Inject() error = %v", err)
 	}
-	prompt := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "gentle-orchestrator")
+	prompt := agentPrompt(t, readOpenCodeAgents(t, settingsPath), "kto-orchestrator")
 	if strings.Contains(prompt, openCodeBackgroundPolicyMarker) || strings.Contains(prompt, openCodeBackgroundPolicyEnd) || !strings.Contains(prompt, "BEFORE_CUSTOM") || !strings.Contains(prompt, "AFTER_CUSTOM") {
 		t.Fatalf("off prompt = %q, want both custom regions without policy", prompt)
 	}
@@ -279,7 +279,7 @@ func TestOpenCodeBackgroundPolicyMalformedPreservedPromptReturnsError(t *testing
 	if err := os.MkdirAll(filepath.Dir(settingsPath), 0o755); err != nil {
 		t.Fatalf("MkdirAll(settings) error = %v", err)
 	}
-	seed := `{"agent":{"gentle-orchestrator":{"prompt":"` + openCodeBackgroundPolicyMarker + `\nuser content"}}}`
+	seed := `{"agent":{"kto-orchestrator":{"prompt":"` + openCodeBackgroundPolicyMarker + `\nuser content"}}}`
 	if err := os.WriteFile(settingsPath, []byte(seed), 0o644); err != nil {
 		t.Fatalf("WriteFile(settings) error = %v", err)
 	}
@@ -301,7 +301,7 @@ func TestOpenCodeBackgroundPolicyIsExcludedByKilocodePublicInject(t *testing.T) 
 	if err != nil {
 		t.Fatalf("Inject(Kilocode) error = %v", err)
 	}
-	prompt := agentPrompt(t, readOpenCodeAgents(t, adapter.SettingsPath(home)), "gentle-orchestrator")
+	prompt := agentPrompt(t, readOpenCodeAgents(t, adapter.SettingsPath(home)), "kto-orchestrator")
 	if strings.Contains(prompt, openCodeBackgroundPolicyMarker) || strings.Contains(prompt, openCodeBackgroundPolicyEnd) {
 		t.Fatal("Kilocode received the OpenCode-only background policy")
 	}

@@ -27,8 +27,8 @@ func TestInjectGentlemanNeutralArtifactsRoutesToNeutralContent(t *testing.T) {
 	text := string(content)
 
 	// The alias routes to neutral content, not gentleman
-	if strings.Contains(text, "Rioplatense") {
-		t.Fatalf("alias should route to neutral — found gentleman tone marker 'Rioplatense'")
+	if strings.Contains(text, "Madrid") {
+		t.Fatalf("alias should route to neutral — found gentleman tone marker 'Madrid'")
 	}
 
 	// Verify neutral content is present

@@ -51,11 +51,11 @@ func TestPersonaDescriptionsSeparateToneFromArtifactLanguage(t *testing.T) {
 		if !strings.Contains(strings.ToLower(description), "english technical artifacts") {
 			t.Fatalf("persona %q must state that technical artifacts are English: %q", persona, description)
 		}
-		mentionsVoseo := strings.Contains(strings.ToLower(description), "voseo")
+		mentionsMadrid := strings.Contains(strings.ToLower(description), "madrid")
 		isGentleman := persona == model.PersonaGentleman
-		if mentionsVoseo != isGentleman {
-			t.Fatalf("persona %q voseo claim = %v, want %v (only Gentleman personas carry a regional tone): %q",
-				persona, mentionsVoseo, isGentleman, description)
+		if mentionsMadrid != isGentleman {
+			t.Fatalf("persona %q Madrid claim = %v, want %v (only Gentleman personas carry a regional tone): %q",
+				persona, mentionsMadrid, isGentleman, description)
 		}
 	}
 

@@ -3252,7 +3252,7 @@ func TestRealAgentInstalledSDDApplyExecutorDoesNotDelegate(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), organicAgentTimeout)
 	defer cancel()
 	command := organicCommandContext(ctx, "opencode", "run", "--pure",
-		"--format", "json", "--agent", "gentle-orchestrator", "--model", "fixture/fixture",
+		"--format", "json", "--agent", "kto-orchestrator", "--model", "fixture/fixture",
 		"--dir", workdir, "Delegate the assigned phase to the installed sdd-apply executor.",
 	)
 	command.Dir = workdir

@@ -247,7 +247,7 @@ func managedAgentBackupPaths(homeDir string, adapter agents.Adapter, diagnostics
 	case model.AgentOpenCode:
 		add(
 			filepath.Join(homeDir, ".config", "opencode", "plugins", "background-agents.ts"),
-			filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "gentle-logo.tsx"),
+			filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "kto-logo.tsx"),
 			filepath.Join(homeDir, ".config", "opencode", "tui.json"),
 		)
 		for _, phase := range sdd.SharedPromptPhases() {

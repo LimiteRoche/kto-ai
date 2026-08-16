@@ -166,7 +166,7 @@ func TestBackupTargetsIncludeSelectedOpenCodePluginPaths(t *testing.T) {
 	targets, err := backupTargets(home, "", ScopeGlobal, model.Selection{
 		OpenCodePlugins: []model.OpenCodeCommunityPluginID{
 			model.OpenCodePluginSubAgentStatusline,
-			model.OpenCodePluginGentleLogo,
+			model.OpenCodePluginKtoLogo,
 		},
 	}, planner.ResolvedPlan{})
 	if err != nil {
@@ -175,7 +175,7 @@ func TestBackupTargetsIncludeSelectedOpenCodePluginPaths(t *testing.T) {
 
 	for _, path := range []string{
 		filepath.Join(home, ".config", "opencode", "tui.json"),
-		filepath.Join(home, ".config", "opencode", "tui-plugins", "gentle-logo.tsx"),
+		filepath.Join(home, ".config", "opencode", "tui-plugins", "kto-logo.tsx"),
 	} {
 		if !slices.Contains(targets, path) {
 			t.Fatalf("backup targets = %v, missing selected plugin path %q", targets, path)
@@ -227,9 +227,9 @@ func TestInstallRollbackRestoresSelectedOpenCodePluginPathsAfterPluginRegistrati
 		t.Run(test.name, func(t *testing.T) {
 			home := t.TempDir()
 			tuiPath := filepath.Join(home, ".config", "opencode", "tui.json")
-			logoPath := filepath.Join(home, ".config", "opencode", "tui-plugins", "gentle-logo.tsx")
+			logoPath := filepath.Join(home, ".config", "opencode", "tui-plugins", "kto-logo.tsx")
 			originalTUI := []byte("{\n  \"plugin\": [\"existing-plugin\"]\n}\n")
-			originalLogo := []byte("pre-existing Gentle Logo bytes\n")
+			originalLogo := []byte("pre-existing k.to Logo bytes\n")
 			if test.preexisting {
 				mustWriteFile(t, tuiPath, originalTUI)
 				mustWriteFile(t, logoPath, originalLogo)
@@ -247,7 +247,7 @@ func TestInstallRollbackRestoresSelectedOpenCodePluginPathsAfterPluginRegistrati
 				Agents: []model.AgentID{model.AgentOpenCode},
 				OpenCodePlugins: []model.OpenCodeCommunityPluginID{
 					model.OpenCodePluginSubAgentStatusline,
-					model.OpenCodePluginGentleLogo,
+					model.OpenCodePluginKtoLogo,
 				},
 				CommunityTools: []model.CommunityToolID{model.CommunityToolCodeGraph},
 			}, planner.ResolvedPlan{Agents: []model.AgentID{model.AgentOpenCode}}, system.PlatformProfile{})
@@ -316,7 +316,7 @@ func (s failAfterPluginRegistrationStep) Run() error {
 		}
 	}
 	if _, err := os.Stat(s.logoPath); err != nil {
-		return fmt.Errorf("Gentle Logo was not written before rollback control: %w", err)
+		return fmt.Errorf("k.to Logo was not written before rollback control: %w", err)
 	}
 	return errors.New("late plugin rollback control")
 }

@@ -419,9 +419,9 @@ func TestUninstallReportsPostCommitCleanupFailure(t *testing.T) {
 	}
 }
 
-// ─── 7. GentleLogo ─────────────────────────────────────────────────────────
+// ─── 7. KtoLogo ─────────────────────────────────────────────────────────
 
-func TestUninstallGentleLogoRemovesTSXAndTUI(t *testing.T) {
+func TestUninstallKtoLogoRemovesTSXAndTUI(t *testing.T) {
 	home := t.TempDir()
 	// Install-equivalent setup: write tui.json with the absolute .tsx path,
 	// and the .tsx file itself.
@@ -429,13 +429,13 @@ func TestUninstallGentleLogoRemovesTSXAndTUI(t *testing.T) {
 	if err := os.MkdirAll(pluginDir, 0o755); err != nil {
 		t.Fatal(err)
 	}
-	tsxPath := filepath.Join(pluginDir, gentleLogoPluginFile)
+	tsxPath := filepath.Join(pluginDir, ktoLogoPluginFile)
 	if err := os.WriteFile(tsxPath, []byte("// fake plugin content"), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	writeTUIConfig(t, home, []string{tsxPath})
 
-	res, err := Uninstall(home, model.OpenCodePluginGentleLogo)
+	res, err := Uninstall(home, model.OpenCodePluginKtoLogo)
 	if err != nil {
 		t.Fatalf("Uninstall() error = %v", err)
 	}
@@ -449,29 +449,29 @@ func TestUninstallGentleLogoRemovesTSXAndTUI(t *testing.T) {
 		t.Fatalf("expected .tsx file gone, stat err = %v", err)
 	}
 
-	// Layers 2/3/4 must NOT have run for GentleLogo.
+	// Layers 2/3/4 must NOT have run for KtoLogo.
 	if res.ChangedPackageJSON {
-		t.Fatal("ChangedPackageJSON = true, want false (GentleLogo skips layer 2)")
+		t.Fatal("ChangedPackageJSON = true, want false (KtoLogo skips layer 2)")
 	}
 	if res.ChangedNodeModules {
-		t.Fatal("ChangedNodeModules = true, want false (GentleLogo skips layer 3)")
+		t.Fatal("ChangedNodeModules = true, want false (KtoLogo skips layer 3)")
 	}
 	if res.CacheEntryRemoved != "" {
-		t.Fatalf("CacheEntryRemoved = %q, want empty (GentleLogo skips layer 4)", res.CacheEntryRemoved)
+		t.Fatalf("CacheEntryRemoved = %q, want empty (KtoLogo skips layer 4)", res.CacheEntryRemoved)
 	}
 }
 
-func TestUninstallGentleLogoMissingTSX(t *testing.T) {
+func TestUninstallKtoLogoMissingTSX(t *testing.T) {
 	home := t.TempDir()
 	// tui.json references the .tsx, but the file does not exist on disk.
 	pluginDir := filepath.Join(home, ".config", "opencode", "tui-plugins")
 	if err := os.MkdirAll(pluginDir, 0o755); err != nil {
 		t.Fatal(err)
 	}
-	tsxPath := filepath.Join(pluginDir, gentleLogoPluginFile)
+	tsxPath := filepath.Join(pluginDir, ktoLogoPluginFile)
 	writeTUIConfig(t, home, []string{tsxPath})
 
-	res, err := Uninstall(home, model.OpenCodePluginGentleLogo)
+	res, err := Uninstall(home, model.OpenCodePluginKtoLogo)
 	if err != nil {
 		t.Fatalf("Uninstall() error = %v", err)
 	}

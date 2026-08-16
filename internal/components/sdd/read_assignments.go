@@ -22,7 +22,7 @@ var reservedAgentSet = map[string]bool{
 	"explore":             true,
 	"gentle-reviewer":     true,
 	"gentle-worker":       true,
-	"gentle-orchestrator": true,
+	"kto-orchestrator": true,
 	"sdd-orchestrator":    true,
 }
 
@@ -32,7 +32,7 @@ func buildConfigurableAgentSet() map[string]bool {
 	for _, p := range phases {
 		set[p] = true
 	}
-	set["gentle-orchestrator"] = true
+	set["kto-orchestrator"] = true
 	// Backward-compatible read alias for configs that have not been synced yet.
 	set["sdd-orchestrator"] = true
 	return set
@@ -93,7 +93,7 @@ func ReadCurrentModelAssignments(settingsPath string) (map[string]model.ModelAss
 		}
 		assignmentKey := name
 		if name == "sdd-orchestrator" {
-			assignmentKey = "gentle-orchestrator"
+			assignmentKey = "kto-orchestrator"
 			if _, hasGentleOrchestrator := result[assignmentKey]; hasGentleOrchestrator {
 				continue
 			}

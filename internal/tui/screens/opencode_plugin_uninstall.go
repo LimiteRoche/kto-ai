@@ -81,10 +81,10 @@ func RenderOpenCodePluginUninstallConfirm(selected model.OpenCodeCommunityPlugin
 	b.WriteString("\n\n")
 	b.WriteString(styles.SubtextStyle.Render("Layered cleanup:"))
 	b.WriteString("\n")
-	if selected == model.OpenCodePluginGentleLogo {
+	if selected == model.OpenCodePluginKtoLogo {
 		b.WriteString(styles.UnselectedStyle.Render("  • tui.json: entry removed"))
 		b.WriteString("\n")
-		b.WriteString(styles.UnselectedStyle.Render("  • tui-plugins/gentle-logo.tsx: removed"))
+		b.WriteString(styles.UnselectedStyle.Render("  • tui-plugins/kto-logo.tsx: removed"))
 	} else {
 		b.WriteString(styles.UnselectedStyle.Render("  • Layer 1 — tui.json: entry removed"))
 		b.WriteString("\n")
@@ -130,7 +130,7 @@ func RenderOpenCodePluginUninstallResult(result opencodeplugin.UninstallResult, 
 		b.WriteString(styles.SuccessStyle.Render("✓ " + name + " uninstalled"))
 		b.WriteString("\n\n")
 
-		if result.PluginID == model.OpenCodePluginGentleLogo {
+		if result.PluginID == model.OpenCodePluginKtoLogo {
 			if result.TSXPath != "" {
 				b.WriteString(styles.SubtextStyle.Render("  • TSX: " + result.TSXPath))
 				b.WriteString("\n")
@@ -176,8 +176,8 @@ func pluginDisplayName(id model.OpenCodeCommunityPluginID) string {
 		return def.Name
 	}
 	switch id {
-	case model.OpenCodePluginGentleLogo:
-		return "Gentle Logo"
+	case model.OpenCodePluginKtoLogo:
+		return "k.to Logo"
 	}
 	return string(id)
 }

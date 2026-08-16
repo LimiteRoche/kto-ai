@@ -72,7 +72,7 @@ func TestUnsupportedImmutableReviewTransportStopsBeforeRepositoryOrAuthority(t *
 	}{
 		{name: "Kilo", runtime: string(model.AgentKilocode), startCode: reviewImmutableTransportUnsupportedCode},
 		{name: "unknown", runtime: "unknown-runtime", startCode: reviewTransportCapabilityUnsupportedCode},
-		{name: "logical orchestrator role", runtime: "gentle-orchestrator", startCode: reviewTransportCapabilityUnsupportedCode},
+		{name: "logical orchestrator role", runtime: "kto-orchestrator", startCode: reviewTransportCapabilityUnsupportedCode},
 		//
 		// An undeclared runtime identity is deliberately absent from this
 		// matrix: it makes no transport claim to refuse, so it stays on the
@@ -128,7 +128,7 @@ func TestUnsupportedImmutableReviewTransportStopsBeforeRepositoryOrAuthority(t *
 	for _, args := range [][]string{
 		{"status", "--contract", ReviewIntegrationContractV2, "--agent", string(model.AgentKilocode), "--next-transition", "--cwd", repo},
 		{"start", "--contract", ReviewIntegrationContractV2, "--agent", "unknown-runtime", "--target", target, "--projection", "workspace", "--cwd", repo},
-		{"start", "--contract", ReviewIntegrationContractV2, "--agent", "gentle-orchestrator", "--target", target, "--projection", "workspace", "--cwd", repo},
+		{"start", "--contract", ReviewIntegrationContractV2, "--agent", "kto-orchestrator", "--target", target, "--projection", "workspace", "--cwd", repo},
 		{"start", "--contract", ReviewIntegrationContractV2, "--agent", string(model.AgentClaudeCode), "--agent", string(model.AgentClaudeCode), "--target", target, "--projection", "workspace", "--cwd", repo},
 	} {
 		if err := RunReview(args, &bytes.Buffer{}); err == nil {

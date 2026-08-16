@@ -1075,7 +1075,7 @@ func TestOpenCodeSDDCommandsAreOrchestratorGuarded(t *testing.T) {
 
 	applyContent := MustRead("opencode/commands/sdd-apply.md")
 	for _, required := range []string{
-		"You are the `gentle-orchestrator`, not an SDD executor",
+		"You are the `kto-orchestrator`, not an SDD executor",
 		"If spec, design, or tasks are missing, do NOT implement",
 		"do not hardcode Engram",
 	} {
@@ -1333,7 +1333,7 @@ func TestGentlemanLanguageInstructionsDoNotBiasEnglishSessions(t *testing.T) {
 
 			for _, banned := range []string{
 				`Say "déjame verificar"`,
-				`Spanish input → Rioplatense Spanish (voseo):`,
+				`Spanish input → Castilian Spanish (Madrid):`,
 				`English input → same warm energy:`,
 			} {
 				if strings.Contains(content, banned) {
@@ -1361,7 +1361,7 @@ func TestGentlemanLanguageInstructionsDoNotBiasEnglishSessions(t *testing.T) {
 			content := MustRead(path)
 
 			for _, banned := range []string{
-				"### Spanish Input → Rioplatense Spanish (voseo)",
+				"### Spanish Input → Castilian Spanish (Madrid)",
 				`Use naturally: "Bien"`,
 				`Use naturally: "Here's the thing"`,
 			} {
@@ -1783,21 +1783,21 @@ func TestOpenCodeSDDOverlaySubagentsAreExplicitExecutors(t *testing.T) {
 			// single overlay still uses inline prompt strings.
 			isMulti := assetPath == "opencode/sdd-overlay-multi.json"
 
-			orchestrator, ok := agents["gentle-orchestrator"].(map[string]any)
+			orchestrator, ok := agents["kto-orchestrator"].(map[string]any)
 			if !ok {
-				t.Fatalf("%q missing gentle-orchestrator agent", assetPath)
+				t.Fatalf("%q missing kto-orchestrator agent", assetPath)
 			}
 			permissions, ok := orchestrator["permission"].(map[string]any)
 			if !ok || permissions["question"] != "allow" {
-				t.Fatalf("%q gentle-orchestrator must allow question permission", assetPath)
+				t.Fatalf("%q kto-orchestrator must allow question permission", assetPath)
 			}
 			tools, ok := orchestrator["tools"].(map[string]any)
 			if !ok {
-				t.Fatalf("%q gentle-orchestrator missing tools", assetPath)
+				t.Fatalf("%q kto-orchestrator missing tools", assetPath)
 			}
 			replacedTools, ok := tools["__replace__"].(map[string]any)
 			if !ok || replacedTools["question"] != true {
-				t.Fatalf("%q gentle-orchestrator must enable question tool", assetPath)
+				t.Fatalf("%q kto-orchestrator must enable question tool", assetPath)
 			}
 
 			for _, phase := range []string{"sdd-init", "sdd-explore", "sdd-propose", "sdd-spec", "sdd-design", "sdd-tasks", "sdd-apply", "sdd-verify", "sdd-archive"} {
@@ -2141,7 +2141,7 @@ func TestSDDOrchestratorAssetsScopedToDedicatedAgent(t *testing.T) {
 			content := MustRead(assetPath)
 			dedicatedAgent := "sdd-orchestrator"
 			if assetPath == "opencode/sdd-orchestrator.md" {
-				dedicatedAgent = "gentle-orchestrator"
+				dedicatedAgent = "kto-orchestrator"
 			}
 			if assetPath == "claude/sdd-orchestrator.md" {
 				if !strings.Contains(content, "Claude Code orchestrator rule") {

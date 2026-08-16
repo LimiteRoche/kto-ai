@@ -357,7 +357,7 @@ func TestInjectOpenCodeMigratesRetiredDeliveryStrategyMapping(t *testing.T) {
 
 	seed := `{
   "agent": {
-    "gentle-orchestrator": {
+    "kto-orchestrator": {
       "mode": "primary",
       "prompt": ` + strconv.Quote("# Custom prompt\n"+stalePrompt) + `
     }
@@ -483,7 +483,7 @@ func TestInjectOpenCodeMigratesRetiredChainedPRPreflightOption(t *testing.T) {
 
 	seed := `{
   "agent": {
-    "gentle-orchestrator": {
+    "kto-orchestrator": {
       "mode": "primary",
       "prompt": ` + strconv.Quote("# Custom prompt\n"+stalePrompt) + `
     }
@@ -553,9 +553,9 @@ func preservedOrchestratorPrompt(t *testing.T, settingsPath string) string {
 	if err := json.Unmarshal(settingsBytes, &settings); err != nil {
 		t.Fatalf("Unmarshal(opencode.json) error = %v", err)
 	}
-	prompt := settings.Agent["gentle-orchestrator"].Prompt
+	prompt := settings.Agent["kto-orchestrator"].Prompt
 	if prompt == "" {
-		t.Fatal("opencode.json lost the preserved gentle-orchestrator prompt")
+		t.Fatal("opencode.json lost the preserved kto-orchestrator prompt")
 	}
 	return prompt
 }

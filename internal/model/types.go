@@ -96,7 +96,7 @@ const (
 	ComponentGGA                ComponentID = "gga"
 	ComponentTheme              ComponentID = "theme"
 	ComponentClaudeTheme        ComponentID = "claude-theme"
-	ComponentOpenCodeGentleLogo ComponentID = "opencode-gentle-logo"
+	ComponentOpenCodeKtoLogo ComponentID = "opencode-kto-logo"
 )
 
 type UninstallMode string
@@ -230,7 +230,7 @@ type OpenCodeCommunityPluginID string
 const (
 	OpenCodePluginSubAgentStatusline OpenCodeCommunityPluginID = "sub-agent-statusline"
 	OpenCodePluginSDDEngramManage    OpenCodeCommunityPluginID = "sdd-engram-plugin"
-	OpenCodePluginGentleLogo         OpenCodeCommunityPluginID = "gentle-logo"
+	OpenCodePluginKtoLogo         OpenCodeCommunityPluginID = "kto-logo"
 )
 
 type CommunityToolID string

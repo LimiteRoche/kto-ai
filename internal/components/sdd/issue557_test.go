@@ -45,7 +45,7 @@ func TestGenerateProfileOverlay_FallsBackToGlobalAssignments(t *testing.T) {
 	// populates) — this is the user's source of truth for "what Gentle AI
 	// shows as assigned" in the global view.
 	globalAssignments := map[string]model.ModelAssignment{
-		"gentle-orchestrator": {ProviderID: "openai", ModelID: "gpt-5.1"},
+		"kto-orchestrator": {ProviderID: "openai", ModelID: "gpt-5.1"},
 		"sdd-init":            {ProviderID: "openai", ModelID: "gpt-5.1"},
 		"sdd-explore":         {ProviderID: "openai", ModelID: "gpt-5.1"},
 		"sdd-onboard":         {ProviderID: "openai", ModelID: "gpt-5.1"},
@@ -77,7 +77,7 @@ func TestGenerateProfileOverlay_FallsBackToGlobalAssignments(t *testing.T) {
 	// it (and the rest) to lock the contract.
 	for phase, want := range globalAssignments {
 		var key string
-		if phase == "gentle-orchestrator" {
+		if phase == "kto-orchestrator" {
 			key = "sdd-orchestrator-homework"
 		} else {
 			key = phase + "-homework"
@@ -132,7 +132,7 @@ func TestInjectHomeworkProfileFallsBackToGlobalAssignmentsViaInject(t *testing.T
 	// sdd-onboard-homework is missing the model — the user-reported state.
 	seed := `{
   "agent": {
-    "gentle-orchestrator": { "mode": "primary" },
+    "kto-orchestrator": { "mode": "primary" },
     "sdd-init": { "mode": "subagent", "model": "openai/gpt-5.1" },
     "sdd-orchestrator-homework": { "mode": "primary", "model": "openai/gpt-5.1" },
     "sdd-init-homework": { "mode": "subagent", "model": "openai/gpt-5.1" },

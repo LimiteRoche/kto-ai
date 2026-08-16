@@ -69,7 +69,7 @@ func outputStyleOverlayJSON(name string) []byte {
 }
 
 // openCodeAgentOverlayJSON defines the Tab-switchable persona agent for OpenCode.
-// SDD is installed separately by the SDD component as "gentle-orchestrator";
+// SDD is installed separately by the SDD component as "kto-orchestrator";
 // persona injection must not create legacy SDD conductor keys.
 var openCodeAgentOverlayJSON = []byte("{\n  \"agent\": {\n    \"gentleman\": {\n      \"mode\": \"primary\",\n      \"description\": \"Senior Architect mentor - helpful first, challenging when it matters\",\n      \"prompt\": \"{file:./AGENTS.md}\",\n      \"tools\": {\n        \"write\": true,\n        \"edit\": true\n      }\n    }\n  }\n}\n")
 
@@ -88,7 +88,7 @@ func Inject(homeDir string, adapter agents.Adapter, persona model.PersonaID) (In
 //
 // It deliberately skips the OpenCode/Kilocode `gentleman` agent definition in
 // opencode.json/kilocode.json: that JSON merge shares the "agent" key with
-// SDD's gentle-orchestrator overlay, so running both in the same sync clobbers
+// SDD's kto-orchestrator overlay, so running both in the same sync clobbers
 // each other's entries and breaks idempotency. That overlay remains an
 // install-only concern.
 func InjectForSync(homeDir string, adapter agents.Adapter, persona model.PersonaID) (InjectionResult, error) {
@@ -349,7 +349,7 @@ func injectInternal(homeDir string, adapter agents.Adapter, persona model.Person
 
 	// 2. OpenCode/Kilocode agent definitions — Tab-switchable agents in settings.
 	// Gentleman overlay creation remains install-only because this overlay shares
-	// the "agent" key in opencode.json with SDD's gentle-orchestrator overlay.
+	// the "agent" key in opencode.json with SDD's kto-orchestrator overlay.
 	// Non-gentleman sync may still do a narrow cleanup of only agent.gentleman so
 	// neutral sync does not leave regional persona state behind.
 	if (adapter.Agent() == model.AgentOpenCode || adapter.Agent() == model.AgentKilocode) && persona != model.PersonaCustom {
@@ -496,7 +496,7 @@ func shouldStripManagedLegacyPersona(existing string) bool {
 	return strings.Contains(existing, "<!-- gentle-ai:persona -->")
 }
 
-// isGentlemanConversationPersona reports whether the persona keeps the voseo
+// isGentlemanConversationPersona reports whether the persona keeps the Madrid
 // conversation tone. The gentleman-neutral-artifacts legacy alias is remapped
 // to neutral (cli.normalizePersona in internal/cli/validate.go, mirrored at
 // the injectInternal entry) and is intentionally NOT gentleman here.

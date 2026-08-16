@@ -297,10 +297,10 @@ func appendConfigWarning(existing, warning string) string {
 }
 
 // SDDOrchestratorPhase is the key used for the base OpenCode SDD coordinator model assignment.
-const SDDOrchestratorPhase = "gentle-orchestrator"
+const SDDOrchestratorPhase = "kto-orchestrator"
 
 // ModelPickerRows returns the row labels for the model picker screen.
-// Row 0 is "gentle-orchestrator" (coordinator), row 1 is "Set all phases",
+// Row 0 is "kto-orchestrator" (coordinator), row 1 is "Set all phases",
 // rows 2-11 are the 10 SDD sub-agent phases, followed by workflow agent sections.
 func ModelPickerRows() []string {
 	return modelPickerRowsWithCustom(true, nil)
@@ -948,7 +948,7 @@ func renderPhaseList(
 		var label string
 		switch {
 		case identity.Kind == ModelPickerRowKindAgent && identity.AgentID == SDDOrchestratorPhase:
-			// "gentle-orchestrator" row — coordinator, individual assignment only
+			// "kto-orchestrator" row — coordinator, individual assignment only
 			assignment, ok := assignments[SDDOrchestratorPhase]
 			if ok && assignment.ProviderID != "" {
 				provName, modelName := resolveNames(assignment, state)

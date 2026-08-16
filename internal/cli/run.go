@@ -1765,9 +1765,9 @@ func (s componentApplyStep) Run() error {
 			}
 		}
 		return nil
-	case model.ComponentOpenCodeGentleLogo:
-		if _, err := opencodeplugin.Install(s.homeDir, model.OpenCodePluginGentleLogo); err != nil {
-			return fmt.Errorf("install OpenCode Gentle Logo plugin: %w", err)
+	case model.ComponentOpenCodeKtoLogo:
+		if _, err := opencodeplugin.Install(s.homeDir, model.OpenCodePluginKtoLogo); err != nil {
+			return fmt.Errorf("install OpenCode k.to Logo plugin: %w", err)
 		}
 		return nil
 	default:
@@ -2335,9 +2335,9 @@ func componentPathsWithWorkspaceScoped(homeDir, workspaceDir string, scope Insta
 			if adapter.Agent() == model.AgentClaudeCode {
 				paths = append(paths, filepath.Join(homeDir, ".claude", "themes", "gentleman.json"))
 			}
-		case model.ComponentOpenCodeGentleLogo:
+		case model.ComponentOpenCodeKtoLogo:
 			paths = append(paths,
-				filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "gentle-logo.tsx"),
+				filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "kto-logo.tsx"),
 				filepath.Join(homeDir, ".config", "opencode", "tui.json"),
 			)
 		}

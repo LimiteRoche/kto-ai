@@ -20,7 +20,7 @@ type UninstallResult struct {
 	ChangedNodeModules bool
 	CacheEntryRemoved  string   // absolute path of removed cache entry, or "" if none
 	NodeModulesPath    string   // absolute path of node_modules/<pkg> removed, or ""
-	TSXPath            string   // absolute path of .tsx file removed (GentleLogo only), or ""
+	TSXPath            string   // absolute path of .tsx file removed (KtoLogo only), or ""
 	CleanupPending     []string // staged paths left after a post-commit cleanup failure
 	JournalManifest    []mutationjournal.OwnedFile
 }
@@ -29,7 +29,7 @@ var removeAll = os.RemoveAll
 
 // Uninstall removes a community plugin across up to 4 layers: tui.json,
 // package.json, node_modules/<pkg>, and the matching cache entry under
-// ~/.cache/opencode/packages/<pkg>@latest. Built-in GentleLogo swaps the NPM
+// ~/.cache/opencode/packages/<pkg>@latest. Built-in KtoLogo swaps the NPM
 // layers for a single .tsx removal. Files use compare-and-swap journal writes;
 // directories are renamed to reversible staging paths until the operation
 // commits. A post-commit staging cleanup failure is reported in CleanupPending.
@@ -40,19 +40,19 @@ func Uninstall(homeDir string, id model.OpenCodeCommunityPluginID) (UninstallRes
 		return result, fmt.Errorf("uninstall opencode plugin: homeDir must not be empty")
 	}
 
-	isGentleLogo := id == model.OpenCodePluginGentleLogo
+	isKtoLogo := id == model.OpenCodePluginKtoLogo
 	def, known := DefinitionFor(id)
-	if !isGentleLogo && !known {
+	if !isKtoLogo && !known {
 		return result, fmt.Errorf("uninstall opencode plugin: unknown id %q", id)
 	}
 
 	// targetInTUI is the literal string Install() registered inside tui.json's
 	// plugin[] list. For NPM plugins this is the NPM package name; for the
-	// built-in GentleLogo .tsx it is the absolute plugin path so it matches
+	// built-in KtoLogo .tsx it is the absolute plugin path so it matches
 	// the value Install() wrote.
 	var targetInTUI string
-	if isGentleLogo {
-		targetInTUI = filepath.Join(homeDir, ".config", "opencode", "tui-plugins", gentleLogoPluginFile)
+	if isKtoLogo {
+		targetInTUI = filepath.Join(homeDir, ".config", "opencode", "tui-plugins", ktoLogoPluginFile)
 	} else {
 		targetInTUI = def.PackageName
 	}
@@ -85,8 +85,8 @@ func Uninstall(homeDir string, id model.OpenCodeCommunityPluginID) (UninstallRes
 		result.JournalManifest = append(result.JournalManifest, journal.OwnedFile(tuiPath, string(tuiAfter), false, false))
 	}
 
-	// ── Layer 2: package.json (skipped for built-in GentleLogo) ───────────
-	if !isGentleLogo {
+	// ── Layer 2: package.json (skipped for built-in KtoLogo) ───────────
+	if !isKtoLogo {
 		pjChanged, pjOwned, err := uninstallPackageJSON(journal, packagePath, def.PackageName)
 		if err != nil {
 			return rollback(fmt.Errorf("uninstall layer 2 (package.json): %w", err), "layer 2", result)
@@ -98,8 +98,8 @@ func Uninstall(homeDir string, id model.OpenCodeCommunityPluginID) (UninstallRes
 		}
 	}
 
-	// ── Layer 3: node_modules/<pkg>/ (skipped for built-in GentleLogo) ─────
-	if !isGentleLogo {
+	// ── Layer 3: node_modules/<pkg>/ (skipped for built-in KtoLogo) ─────
+	if !isKtoLogo {
 		nodeModulesPath := filepath.Join(opencodeDir, "node_modules", def.PackageName)
 		removal, err := stageDirectoryRemoval(journal, nodeModulesPath)
 		if err != nil {
@@ -113,8 +113,8 @@ func Uninstall(homeDir string, id model.OpenCodeCommunityPluginID) (UninstallRes
 		}
 	}
 
-	// ── Layer 4: optional cache entries (skipped for built-in GentleLogo) ─
-	if !isGentleLogo {
+	// ── Layer 4: optional cache entries (skipped for built-in KtoLogo) ─
+	if !isKtoLogo {
 		cachePath := filepath.Join(homeDir, ".cache", "opencode", "packages", def.PackageName+"@latest")
 		removal, err := stageDirectoryRemoval(journal, cachePath)
 		if err != nil {
@@ -127,9 +127,9 @@ func Uninstall(homeDir string, id model.OpenCodeCommunityPluginID) (UninstallRes
 		}
 	}
 
-	// ── Layer TSX: built-in GentleLogo local plugin file ───────────────────
-	if isGentleLogo {
-		tsxPath := filepath.Join(homeDir, ".config", "opencode", "tui-plugins", gentleLogoPluginFile)
+	// ── Layer TSX: built-in KtoLogo local plugin file ───────────────────
+	if isKtoLogo {
+		tsxPath := filepath.Join(homeDir, ".config", "opencode", "tui-plugins", ktoLogoPluginFile)
 		info, statErr := os.Lstat(tsxPath)
 		if statErr == nil && !info.IsDir() {
 			removed, err := journal.Remove(tsxPath)

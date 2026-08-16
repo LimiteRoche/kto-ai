@@ -97,7 +97,7 @@ var (
 		model.ComponentSkills,
 		model.ComponentTheme,
 		model.ComponentClaudeTheme,
-		model.ComponentOpenCodeGentleLogo,
+		model.ComponentOpenCodeKtoLogo,
 		model.ComponentGGA,
 	}
 	fullAgentRemovalComponents = []model.ComponentID{
@@ -109,10 +109,10 @@ var (
 		model.ComponentSkills,
 		model.ComponentTheme,
 		model.ComponentClaudeTheme,
-		model.ComponentOpenCodeGentleLogo,
+		model.ComponentOpenCodeKtoLogo,
 	}
 	configuredAgents = []string{
-		"gentle-orchestrator",
+		"kto-orchestrator",
 		"sdd-orchestrator", // legacy key — kept for backward-compat cleanup
 		"sdd-init",
 		"sdd-explore",
@@ -702,8 +702,8 @@ func (s *Service) componentOperations(adapter agents.Adapter, componentID model.
 			targets = append(targets, path)
 			ops = append(ops, removeFile(path), removeDirIfEmpty(filepath.Dir(path)))
 		}
-	case model.ComponentOpenCodeGentleLogo:
-		pluginPath := filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "gentle-logo.tsx")
+	case model.ComponentOpenCodeKtoLogo:
+		pluginPath := filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "kto-logo.tsx")
 		targets = append(targets, pluginPath)
 		ops = append(ops, removeFile(pluginPath), removeDirIfEmpty(filepath.Dir(pluginPath)))
 	case model.ComponentSkills:

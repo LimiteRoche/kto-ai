@@ -1999,7 +1999,7 @@ func (m Model) confirmSelection() (tea.Model, tea.Cmd) {
 			m.ProfileNamePos = len([]rune(profile.Name))
 			m.ProfileNameErr = ""
 			// Build ModelAssignments from the profile's phase assignments + orchestrator.
-			// The ModelPicker shows gentle-orchestrator as the base row, so we need
+			// The ModelPicker shows kto-orchestrator as the base row, so we need
 			// to include it in the map for it to display the current model.
 			assignments := make(map[string]model.ModelAssignment)
 			for k, v := range profile.PhaseAssignments {
@@ -4147,7 +4147,7 @@ func opencodepluginDefinitions() []model.OpenCodeCommunityPluginID {
 // openCodePluginUninstallInstalledFromTUI reads ~/.config/opencode/tui.json's
 // plugin[] list and maps package names back to OpenCodeCommunityPluginIDs so
 // the uninstall Select screen can offer the user a list of what is actually
-// installed. Unknown entries (e.g. third-party packages, the GentleLogo .tsx
+// installed. Unknown entries (e.g. third-party packages, the KtoLogo .tsx
 // absolute path) are mapped when recognized and ignored otherwise. Returns
 // an empty slice if tui.json is missing, malformed, or has no plugin[] field.
 func openCodePluginUninstallInstalledFromTUI(home string) []model.OpenCodeCommunityPluginID {
@@ -4171,11 +4171,11 @@ func openCodePluginUninstallInstalledFromTUI(home string) []model.OpenCodeCommun
 	for _, def := range opencodeplugin.Definitions() {
 		knownByPackage[def.PackageName] = def.ID
 	}
-	// Match the GentleLogo plugin by either separator form because the
+	// Match the KtoLogo plugin by either separator form because the
 	// Install path uses filepath.Join (native separator for the host).
-	gentleLogoSuffixes := []string{
-		filepath.Join("tui-plugins", "gentle-logo.tsx"),
-		"tui-plugins/gentle-logo.tsx",
+	ktoLogoSuffixes := []string{
+		filepath.Join("tui-plugins", "kto-logo.tsx"),
+		"tui-plugins/kto-logo.tsx",
 	}
 	seen := map[model.OpenCodeCommunityPluginID]bool{}
 	out := make([]model.OpenCodeCommunityPluginID, 0, len(raw))
@@ -4193,11 +4193,11 @@ func openCodePluginUninstallInstalledFromTUI(home string) []model.OpenCodeCommun
 			out = append(out, id)
 			continue
 		}
-		if !seen[model.OpenCodePluginGentleLogo] {
-			for _, suffix := range gentleLogoSuffixes {
+		if !seen[model.OpenCodePluginKtoLogo] {
+			for _, suffix := range ktoLogoSuffixes {
 				if strings.HasSuffix(entry, suffix) {
-					seen[model.OpenCodePluginGentleLogo] = true
-					out = append(out, model.OpenCodePluginGentleLogo)
+					seen[model.OpenCodePluginKtoLogo] = true
+					out = append(out, model.OpenCodePluginKtoLogo)
 					break
 				}
 			}

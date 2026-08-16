@@ -305,7 +305,7 @@ func TestPartialUninstallVisualPolishSelectionRemovesThemeLogoGroup(t *testing.T
 		t.Fatalf("WriteFile(opencode settings) error = %v", err)
 	}
 
-	logoPath := filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "gentle-logo.tsx")
+	logoPath := filepath.Join(homeDir, ".config", "opencode", "tui-plugins", "kto-logo.tsx")
 	if err := os.MkdirAll(filepath.Dir(logoPath), 0o755); err != nil {
 		t.Fatalf("MkdirAll(logo dir) error = %v", err)
 	}

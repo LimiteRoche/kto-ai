@@ -279,8 +279,8 @@ func TestCommentWriterLanguageContractSources(t *testing.T) {
 			}
 
 			for _, forcedDefault := range []string{
-				"If writing in Spanish, use Rioplatense Spanish/voseo",
-				"use Rioplatense Spanish/voseo: `podés`, `tenés`, `fijate`, `dale`",
+				"If writing in Spanish, use Castilian Spanish (Madrid)",
+				"use Castilian Spanish (Madrid): `podés`, `tenés`, `fijate`, `dale`",
 				"agregá",
 				"separaría este cambio",
 			} {
@@ -312,7 +312,7 @@ func TestGentlemanPersonaKeepsDirectConversationVoice(t *testing.T) {
 			if tc.combineWith != "" {
 				content += "\n" + MustRead(tc.combineWith)
 			}
-			for _, required := range []string{"Rioplatense", "voseo", "Passionate teacher"} {
+			for _, required := range []string{"Madrid", "Madrid", "Passionate teacher"} {
 				if !strings.Contains(content, required) {
 					t.Fatalf("%s (combined=%q) missing Gentleman direct-conversation voice marker %q", tc.path, tc.combineWith, required)
 				}
@@ -344,10 +344,10 @@ func TestNeutralPersonaAssetsProvideMentorParityWithoutRegionalVoice(t *testing.
 			}
 
 			for _, banned := range []string{
-				"Rioplatense",
-				"voseo",
+				"Madrid",
+				"Madrid",
 				"Gentleman regional voice",
-				"When replying to the user in Spanish, use warm natural Rioplatense Spanish",
+				"When replying to the user in Spanish, use warm natural Castilian Spanish (Madrid)",
 			} {
 				if strings.Contains(content, banned) {
 					t.Fatalf("%s contains banned regional neutral wording %q", path, banned)
@@ -380,7 +380,7 @@ func TestNeutralOutputStyleAssetsProvideMeaningfulContract(t *testing.T) {
 					t.Fatalf("%s missing output-style contract %q", path, required)
 				}
 			}
-			for _, banned := range []string{"Rioplatense", "voseo", "Gentleman Output Style"} {
+			for _, banned := range []string{"Madrid", "Madrid", "k.to Output Style"} {
 				if strings.Contains(content, banned) {
 					t.Fatalf("%s contains banned neutral output-style wording %q", path, banned)
 				}

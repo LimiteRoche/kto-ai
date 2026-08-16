@@ -18,7 +18,7 @@ var mvpComponents = []Component{
 	{ID: model.ComponentGGA, Name: "GGA", Description: "Gentleman Guardian Angel — AI provider switcher"},
 	{ID: model.ComponentTheme, Name: "OpenCode Theme", Description: "Visual polish: OpenCode color theme"},
 	{ID: model.ComponentClaudeTheme, Name: "Claude Code Theme", Description: "Visual polish: Claude Code color theme"},
-	{ID: model.ComponentOpenCodeGentleLogo, Name: "OpenCode Logo", Description: "Visual polish: OpenCode home logo plugin"},
+	{ID: model.ComponentOpenCodeKtoLogo, Name: "OpenCode Logo", Description: "Visual polish: OpenCode home logo plugin"},
 }
 
 func MVPComponents() []Component {

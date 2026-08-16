@@ -46,8 +46,8 @@ func TestInjectCommentWriterLanguageContractForOpenCode(t *testing.T) {
 			t.Fatalf("installed comment-writer missing language contract %q", required)
 		}
 	}
-	if strings.Contains(text, "If writing in Spanish, use Rioplatense Spanish/voseo") {
-		t.Fatal("installed comment-writer still forces Rioplatense Spanish for all Spanish comments")
+	if strings.Contains(text, "If writing in Spanish, use Castilian Spanish (Madrid)") {
+		t.Fatal("installed comment-writer still forces Castilian Spanish (Madrid) for all Spanish comments")
 	}
 }
 

@@ -139,8 +139,8 @@ func TestInjectKimiGentlemanIncludesProjectInstructionsAndLoadedSkills(t *testin
 	if err != nil {
 		t.Fatalf("ReadFile(%q) error = %v", outputStylePath, err)
 	}
-	if !strings.Contains(string(styleContent), "Gentleman Output Style") {
-		t.Fatal("output-style.md missing Gentleman Output Style content")
+	if !strings.Contains(string(styleContent), "k.to Output Style") {
+		t.Fatal("output-style.md missing k.to Output Style content")
 	}
 	assertLanguageGuardrails(t, string(styleContent),
 		[]string{
@@ -150,7 +150,7 @@ func TestInjectKimiGentlemanIncludesProjectInstructionsAndLoadedSkills(t *testin
 			"keep the full reply in natural English with the same warm energy",
 		},
 		[]string{
-			"### Spanish Input → Rioplatense Spanish (voseo)",
+			"### Spanish Input → Castilian Spanish (Madrid)",
 			`Use naturally: "Bien"`,
 			`Use naturally: "Here's the thing"`,
 		},
@@ -172,7 +172,7 @@ func TestInjectKimiGentlemanIncludesProjectInstructionsAndLoadedSkills(t *testin
 	}
 	for _, banned := range []string{
 		"Match the user's current language in your REPLY ONLY",
-		"Rioplatense",
+		"Madrid",
 		"## Personality",
 	} {
 		if strings.Contains(personaText, banned) {
@@ -197,14 +197,14 @@ func TestInjectClaudeGentlemanWritesOutputStyleFile(t *testing.T) {
 	}
 
 	text := string(content)
-	if !strings.Contains(text, "name: Gentleman") {
-		t.Fatal("Output style file missing YAML frontmatter 'name: Gentleman'")
+	if !strings.Contains(text, "name: k.to") {
+		t.Fatal("Output style file missing YAML frontmatter 'name: k.to'")
 	}
 	if !strings.Contains(text, "keep-coding-instructions: true") {
 		t.Fatal("Output style file missing 'keep-coding-instructions: true'")
 	}
-	if !strings.Contains(text, "Gentleman Output Style") {
-		t.Fatal("Output style file missing 'Gentleman Output Style' heading")
+	if !strings.Contains(text, "k.to Output Style") {
+		t.Fatal("Output style file missing 'k.to Output Style' heading")
 	}
 	assertLanguageGuardrails(t, text, claudeOutputStyleLanguageGuardrails, nil)
 }
@@ -311,8 +311,8 @@ func TestInjectClaudeNeutralWritesResidualPersonaWithoutRegionalLanguage(t *test
 		t.Fatal("Neutral persona residual section missing '## Rules'")
 	}
 	// Should NOT have gentleman-specific regional language.
-	if strings.Contains(text, "Rioplatense") {
-		t.Fatal("Neutral persona should not contain Rioplatense language")
+	if strings.Contains(text, "Madrid") {
+		t.Fatal("Neutral persona should not contain Madrid language")
 	}
 }
 
@@ -361,7 +361,7 @@ func TestInjectClaudeNeutralWritesNeutralOutputStyleAndSettings(t *testing.T) {
 		}
 	}
 	assertLanguageGuardrails(t, styleText, claudeOutputStyleLanguageGuardrails, nil)
-	if strings.Contains(styleText, "Rioplatense") || strings.Contains(styleText, "voseo") {
+	if strings.Contains(styleText, "Madrid") || strings.Contains(styleText, "Madrid") {
 		t.Fatalf("neutral output style contains regional wording:\n%s", styleText)
 	}
 	if _, err := os.Stat(staleGentlemanPath); !os.IsNotExist(err) {
@@ -588,8 +588,8 @@ func TestInjectOpenCodeGentlemanDoesNotCreateSDDConductor(t *testing.T) {
 	if strings.Contains(text, `"sdd-orchestrator"`) {
 		t.Fatal("persona injection must not create legacy sdd-orchestrator conductor")
 	}
-	if strings.Contains(text, `"gentle-orchestrator"`) {
-		t.Fatal("persona injection must not create SDD conductor; SDD component owns gentle-orchestrator")
+	if strings.Contains(text, `"kto-orchestrator"`) {
+		t.Fatal("persona injection must not create SDD conductor; SDD component owns kto-orchestrator")
 	}
 	if !strings.Contains(text, `"gentleman"`) {
 		t.Fatal("persona injection should still create the gentleman persona agent")
@@ -904,8 +904,8 @@ func TestInjectOpenCodeNeutralPreservesManagedSections(t *testing.T) {
 	if !strings.Contains(text, "Senior Architect") {
 		t.Fatal("AGENTS.md missing neutral persona content")
 	}
-	if strings.Contains(text, "Rioplatense") {
-		t.Fatal("AGENTS.md has Rioplatense language in neutral persona — should be neutral tone")
+	if strings.Contains(text, "Madrid") {
+		t.Fatal("AGENTS.md has Madrid language in neutral persona — should be neutral tone")
 	}
 
 	// Managed sections MUST be preserved
@@ -917,8 +917,8 @@ func TestInjectOpenCodeNeutralPreservesManagedSections(t *testing.T) {
 	}
 
 	// Gentleman-specific language should be gone — neutral has the same personality but no regional language
-	if strings.Contains(text, "Rioplatense") {
-		t.Fatal("AGENTS.md still has Rioplatense language after switching to neutral")
+	if strings.Contains(text, "Madrid") {
+		t.Fatal("AGENTS.md still has Madrid language after switching to neutral")
 	}
 }
 
@@ -947,7 +947,7 @@ func TestInjectKimiNeutralWritesMeaningfulOutputStyle(t *testing.T) {
 			t.Fatalf("Kimi neutral output-style.md missing %q; got:\n%s", want, text)
 		}
 	}
-	if strings.Contains(text, "Rioplatense") || strings.Contains(text, "voseo") {
+	if strings.Contains(text, "Madrid") || strings.Contains(text, "Madrid") {
 		t.Fatalf("Kimi neutral output-style.md contains regional wording:\n%s", text)
 	}
 }
@@ -1066,8 +1066,8 @@ func TestInjectVSCodeNeutralPreservesManagedSections(t *testing.T) {
 	if !strings.Contains(text, "Senior Architect") {
 		t.Fatal("instructions file missing neutral persona content")
 	}
-	if strings.Contains(text, "Rioplatense") {
-		t.Fatal("instructions file has Rioplatense language in neutral persona")
+	if strings.Contains(text, "Madrid") {
+		t.Fatal("instructions file has Madrid language in neutral persona")
 	}
 	if !strings.Contains(text, "<!-- gentle-ai:sdd-orchestrator -->") {
 		t.Fatal("instructions file lost SDD section after switching to neutral persona")
@@ -1319,7 +1319,7 @@ func TestInjectGeminiGentlemanWritesSystemPromptWithRealContent(t *testing.T) {
 		},
 		[]string{
 			`Say "déjame verificar"`,
-			"Spanish input → Rioplatense Spanish",
+			"Spanish input → Castilian Spanish (Madrid)",
 			"English input → same warm energy",
 		},
 	)
@@ -1372,7 +1372,7 @@ Senior Architect, 15+ years experience, GDE & MVP.
 
 ## Language
 
-- Spanish input → Rioplatense Spanish.
+- Spanish input → Castilian Spanish (Madrid).
 
 ## Behavior
 
@@ -1990,14 +1990,14 @@ func TestInjectKimi_SwitchGentlemanToNeutral_NoResidualPersonaContent(t *testing
 	if !strings.Contains(content, "Neutral Output Style") {
 		t.Errorf("output-style.md missing Neutral Output Style after switching to neutral; got:\n%s", content)
 	}
-	if strings.Contains(content, "Rioplatense") {
-		t.Error("output-style.md still contains 'Rioplatense' after switching to neutral")
+	if strings.Contains(content, "Madrid") {
+		t.Error("output-style.md still contains 'Madrid' after switching to neutral")
 	}
-	if strings.Contains(content, "Gentleman Output Style") {
-		t.Error("output-style.md still contains 'Gentleman Output Style' after switching to neutral")
+	if strings.Contains(content, "k.to Output Style") {
+		t.Error("output-style.md still contains 'k.to Output Style' after switching to neutral")
 	}
-	if strings.Contains(content, "voseo") {
-		t.Error("output-style.md still contains 'voseo' after switching to neutral")
+	if strings.Contains(content, "Madrid") {
+		t.Error("output-style.md still contains 'Madrid' after switching to neutral")
 	}
 }
 
@@ -2340,11 +2340,11 @@ func TestResidualChannelAllAgents(t *testing.T) {
 // the file is overwritten with the reconciled Claude-derived union text.
 var legacyKimiOutputStyleGentlemanLines = []string{
 	"---",
-	"name: Gentleman",
-	"description: Senior Architect 15+ years - GDE & MVP - passionate about REAL teaching",
+	"name: k.to",
+	"description: Senior Architect 40 years, 20 years experience - GDE & MVP - passionate about REAL teaching",
 	"keep-coding-instructions: true",
 	"---",
-	"# Gentleman Output Style",
+	"# k.to Output Style",
 	"## Core Principle",
 	"Be helpful FIRST. You're a mentor, not an interrogator. Simple questions get simple answers. Save the tough love for moments that actually matter — architecture decisions, bad practices, real misconceptions. Don't challenge every single message.",
 	"## Response Length Contract",
@@ -2354,7 +2354,7 @@ var legacyKimiOutputStyleGentlemanLines = []string{
 	"- Do not offer option menus, exhaustive lists, or multiple approaches unless there is a real fork with meaningful tradeoffs.",
 	"- If unsure whether to be brief or detailed, be brief.",
 	"## Personality",
-	"Senior Architect, 15+ years of experience, GDE and MVP. Passionate teacher who genuinely wants people to learn and grow. Frustrated by shortcuts — because you know they can do better. Speak with energy, passion, and genuine desire to help.",
+	"Senior Architect, 40 years old, 20 years of software experience, GDE and MVP. Passionate teacher who genuinely wants people to learn and grow. Frustrated by shortcuts — because you know they can do better. Speak with energy, passion, irony, and genuine desire to help.",
 	"## Persona Scope (CRITICAL — read this first)",
 	"The persona's Language, Tone, Speech Patterns, and Personality rules govern ONLY your reply text addressed to the user — what you SAY in chat.",
 	"They do NOT govern artifacts you produce for the task:",
@@ -2364,7 +2364,7 @@ var legacyKimiOutputStyleGentlemanLines = []string{
 	"- Any string literal inside source code",
 	"For those artifacts:",
 	"- Default to English. UI labels, comments, identifiers, and copy are in English unless the user explicitly requests another language for that artifact, OR the existing project clearly uses another language and you are extending it.",
-	"- Never inject Rioplatense slang, voseo, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact.",
+	"- Never inject Madrileño slang, irony, sarcasm, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact.",
 	"- The persona styles HOW YOU TALK, not WHAT YOU BUILD.",
 	"## Language Rules",
 	"These rules apply ONLY to your reply text (see Persona Scope above).",
@@ -2378,7 +2378,7 @@ var legacyKimiOutputStyleGentlemanLines = []string{
 	// both normative elements without reintroducing drift.
 	"- If the selected reply language is English, every part of the direct reply must be English: greetings, interjections, acknowledgements, transition phrases, and the first sentence. Do not use Hola, dale, listo, Spanish punctuation, or other Spanish fragments.",
 	"- Prompts starting with or dominated by hi, hello, hey, or similar English greetings are English prompts unless the user explicitly asks for another language.",
-	"- When replying to the user in Spanish, use warm natural Rioplatense Spanish (voseo) without overloading the reply with slang.",
+	"- When replying to the user in Spanish, use natural Castilian Spanish from Madrid, with well-placed irony and sarcasm — never overloading the reply with slang.",
 	"- In every language, be warm and genuine, NEVER sarcastic or mocking. You're passionate because you CARE, not because you want to make them feel bad.",
 	"## Tone",
 	"Passionate and direct, but from a place of CARING. Use rhetorical questions sparingly. Repeat only when emphasis genuinely helps. Use CAPS for key words sparingly. You're a MENTOR helping someone grow, not a drill sergeant looking for mistakes.",
@@ -2535,7 +2535,7 @@ var claudeGentlemanMovedRules = []movedPersonaRule{
 	{frozen: "- Any string literal inside source code", checkAgainst: "- Any string literal inside source code"},
 	{frozen: "For those artifacts:", checkAgainst: "For those artifacts:"},
 	{frozen: "- Default to English. UI labels, comments, identifiers, and copy are in English unless the user explicitly requests another language for that artifact, OR the existing project clearly uses another language and you are extending it.", checkAgainst: "- Default to English. UI labels, comments, identifiers, and copy are in English unless the user explicitly requests another language for that artifact, OR the existing project clearly uses another language and you are extending it."},
-	{frozen: "- Never inject Rioplatense slang, voseo, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact.", checkAgainst: "- Never inject Rioplatense slang, voseo, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact."},
+	{frozen: "- Never inject Madrileño slang, irony, sarcasm, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact.", checkAgainst: "- Never inject Madrileño slang, irony, sarcasm, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact."},
 	{frozen: "- The persona styles HOW YOU TALK, not WHAT YOU BUILD.", checkAgainst: "- The persona styles HOW YOU TALK, not WHAT YOU BUILD."},
 	{frozen: "- Generated technical artifacts default to English regardless of the active persona or conversation language.", checkAgainst: "- Generated technical artifacts default to English regardless of the active persona or conversation language."},
 	{frozen: "- If Spanish technical artifacts are explicitly requested, use neutral/professional Spanish unless the user explicitly asks for a regional variant.", checkAgainst: "- If Spanish technical artifacts are explicitly requested, use neutral/professional Spanish unless the user explicitly asks for a regional variant."},
@@ -2548,7 +2548,7 @@ var claudeGentlemanMovedRules = []movedPersonaRule{
 		mergedNote:   "style expanded the exclusion list ('persona wording'/'stylistic momentum' vs 'persona momentum') without dropping the priority-ordering rule"},
 	{frozen: "- For mixed-language prompts, use the dominant language of the user's direct request. Quoted text, filenames, project names, isolated borrowed words, or phrases like \"the Spanish part\" do not switch the reply language by themselves.", checkAgainst: "- For mixed-language prompts, use the dominant language of the user's direct request. Quoted text, filenames, project names, isolated borrowed words, or phrases like \"the Spanish part\" do not switch the reply language by themselves."},
 	{frozen: "- Do not switch languages unless the user does, asks you to, or you are quoting/translating content.", checkAgainst: "- Do not switch languages unless the user does, asks you to, or you are quoting/translating content."},
-	{frozen: "- When replying to the user in Spanish, use warm natural Rioplatense Spanish (voseo) without overloading the reply with slang.", checkAgainst: "- When replying to the user in Spanish, use warm natural Rioplatense Spanish (voseo) without overloading the reply with slang."},
+	{frozen: "- When replying to the user in Spanish, use natural Castilian Spanish from Madrid, with well-placed irony and sarcasm — never overloading the reply with slang.", checkAgainst: "- When replying to the user in Spanish, use natural Castilian Spanish from Madrid, with well-placed irony and sarcasm — never overloading the reply with slang."},
 	{frozen: "- When replying to the user in English, keep the full reply in natural English with the same warm energy.",
 		checkAgainst: "keep the full reply in natural English with the same warm energy",
 		mergedNote:   "JD-013/Decision 4: merged with the style's own near-duplicate English-reply bullet into one canonical sentence"},
@@ -2599,7 +2599,7 @@ var kimiGentlemanMovedRules = []movedPersonaRule{
 	{frozen: "- Any string literal inside source code", checkAgainst: "- Any string literal inside source code"},
 	{frozen: "For those artifacts:", checkAgainst: "For those artifacts:"},
 	{frozen: "- Default to English. UI labels, comments, identifiers, and copy are in English unless the user explicitly requests another language for that artifact, OR the existing project clearly uses another language and you are extending it.", checkAgainst: "- Default to English. UI labels, comments, identifiers, and copy are in English unless the user explicitly requests another language for that artifact, OR the existing project clearly uses another language and you are extending it."},
-	{frozen: "- Never inject Rioplatense slang, voseo, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact.", checkAgainst: "- Never inject Rioplatense slang, voseo, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact."},
+	{frozen: "- Never inject Madrileño slang, irony, sarcasm, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact.", checkAgainst: "- Never inject Madrileño slang, irony, sarcasm, or persona stylistic emphasis (CAPS, exclamations, rhetorical questions) into generated code, UI strings, or any task artifact."},
 	{frozen: "- The persona styles HOW YOU TALK, not WHAT YOU BUILD.", checkAgainst: "- The persona styles HOW YOU TALK, not WHAT YOU BUILD."},
 	{frozen: "- Generated technical artifacts default to English regardless of the active persona or conversation language.", checkAgainst: "- Generated technical artifacts default to English regardless of the active persona or conversation language."},
 	{frozen: "- If Spanish technical artifacts are explicitly requested, use neutral/professional Spanish unless the user explicitly asks for a regional variant.", checkAgainst: "- If Spanish technical artifacts are explicitly requested, use neutral/professional Spanish unless the user explicitly asks for a regional variant."},
@@ -2608,7 +2608,7 @@ var kimiGentlemanMovedRules = []movedPersonaRule{
 		checkAgainst: "Always match the user's current language in your reply.",
 		mergedNote:   "JD-019: the persona's 'REPLY ONLY' phrasing was folded into the style's own Language Rules opener; this is the exact combined-channel phrase"},
 	{frozen: "- Do not switch languages unless the user does, asks you to, or you are quoting/translating content.", checkAgainst: "- Do not switch languages unless the user does, asks you to, or you are quoting/translating content."},
-	{frozen: "- When replying to the user in Spanish, use warm natural Rioplatense Spanish (voseo) without overloading the reply with slang.", checkAgainst: "- When replying to the user in Spanish, use warm natural Rioplatense Spanish (voseo) without overloading the reply with slang."},
+	{frozen: "- When replying to the user in Spanish, use natural Castilian Spanish from Madrid, with well-placed irony and sarcasm — never overloading the reply with slang.", checkAgainst: "- When replying to the user in Spanish, use natural Castilian Spanish from Madrid, with well-placed irony and sarcasm — never overloading the reply with slang."},
 	{frozen: "- When replying to the user in English, keep the full reply in natural English with the same warm energy.",
 		checkAgainst: "keep the full reply in natural English with the same warm energy",
 		mergedNote:   "JD-013/Decision 4: merged with the style's own near-duplicate English-reply bullet into one canonical sentence"},
@@ -2976,9 +2976,9 @@ func TestInjectHermesNeutralWritesSOULMD(t *testing.T) {
 }
 
 // TestHermesPersonaAssetsContainIdentitySection verifies that both Hermes persona
-// assets include an explicit ## Identity section that names "Gentle AI" and "Hermes".
+// assets include an explicit ## Identity section that names "k.to" and "Hermes".
 // This ensures that when a user asks "who are you?" the agent does not fall back to a
-// generic assistant identity — it answers as Gentle AI running on Hermes Agent.
+// generic assistant identity — it answers as k.to running on Hermes Agent.
 func TestHermesPersonaAssetsContainIdentitySection(t *testing.T) {
 	paths := []string{
 		"hermes/persona-gentleman.md",
@@ -2992,8 +2992,8 @@ func TestHermesPersonaAssetsContainIdentitySection(t *testing.T) {
 			if !strings.Contains(content, "## Identity") {
 				t.Fatalf("%s missing ## Identity section", path)
 			}
-			if !strings.Contains(content, "Gentle AI") {
-				t.Fatalf("%s ## Identity section must mention \"Gentle AI\"", path)
+			if !strings.Contains(content, "k.to") {
+				t.Fatalf("%s ## Identity section must mention \"k.to\"", path)
 			}
 			if !strings.Contains(content, "Hermes") {
 				t.Fatalf("%s ## Identity section must mention \"Hermes\"", path)

@@ -378,7 +378,7 @@ Senior Architect, 15+ years experience, GDE & MVP.
 
 ## Language
 
-- Spanish input → Rioplatense Spanish.
+- Spanish input → Castilian Spanish (Madrid).
 
 `
 

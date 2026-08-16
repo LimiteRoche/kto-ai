@@ -215,7 +215,7 @@ When launching `sdd-apply`, always include the resolved `delivery_strategy`, `ch
 
 Read this table before the first SDD/Judgment-Day delegation in a session, cache it, and use the mapped alias only for SDD/Judgment-Day phase agents. If a phase is missing, use `default`. If the assigned model is unavailable, substitute `sonnet` and continue.
 
-The Claude Code session model is controlled by Claude Code itself; Gentle AI does not configure the main orchestrator model. This table applies only to Agent tool calls for SDD/Judgment-Day phase sub-agents, not generic delegation.
+The Claude Code session model is controlled by Claude Code itself; k.to does not configure the main orchestrator model. This table applies only to Agent tool calls for SDD/Judgment-Day phase sub-agents, not generic delegation.
 
 **Mandatory phase model gate:** Agent tool calls for SDD/Judgment-Day phase agents MUST include `model`. Generic/non-SDD delegation MUST NOT use this table; omit `model` unless the user explicitly requested an override.
 
