@@ -69,6 +69,8 @@ const ktoArt = [
 
 const compactArt = ["✦ k.to ✦"]
 
+const ktoGradient = ["#ff2b2b", "#ff4d1a", "#ff6a00", "#ff8a00", "#ffaa00", "#ffcc33"]
+
 const Logo = () => {
   const dim = useTerminalDimensions()
   const lines = createMemo(() => {
@@ -78,8 +80,8 @@ const Logo = () => {
 
   return (
     <box flexDirection="column" alignItems="center">
-      {lines().map((line) => (
-        <text fg="magenta">{line}</text>
+      {lines().map((line, i) => (
+        <text fg={ktoGradient[i % ktoGradient.length]}>{line}</text>
       ))}
     </box>
   )

@@ -19,11 +19,11 @@ var logoLines = []string{
 // gradientColors defines the top-to-bottom gradient for the logo.
 // Distributed across rows: the k.to gradient.
 var gradientColors = []lipgloss.Color{
-	ColorMauve,    // band 1
-	ColorLavender, // band 2
-	ColorBlue,     // band 3
-	ColorTeal,     // band 4
-	ColorGreen,    // band 5
+	lipgloss.Color("#ff2b2b"), // band 1: red
+	lipgloss.Color("#ff4d1a"), // band 2: red-orange
+	lipgloss.Color("#ff6a00"), // band 3: orange
+	lipgloss.Color("#ff8a00"), // band 4: orange-amber
+	lipgloss.Color("#ffaa00"), // band 5: amber
 }
 
 // RenderLogo returns the ASCII logo with a top-to-bottom gradient.
