@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/app"
+	"github.com/LimiteRoche/kto-ai/v2/internal/app"
 )
 
 // version is set by GoReleaser via ldflags at build time.

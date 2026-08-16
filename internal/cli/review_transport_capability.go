@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/capabilitymanifest"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/catalog"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/capabilitymanifest"
+	"github.com/LimiteRoche/kto-ai/v2/internal/catalog"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
 )
 
 const reviewImmutableTransportUnsupportedCode = "immutable_review_transport_unsupported"

@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+	"github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 )
 
 // This file is Wave 4 S5 (design.md decision 2, task 6.4): the read-only

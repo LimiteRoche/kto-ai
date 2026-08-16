@@ -11,8 +11,8 @@ import (
 	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/tui"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/tui/screens"
+	"github.com/LimiteRoche/kto-ai/v2/internal/tui"
+	"github.com/LimiteRoche/kto-ai/v2/internal/tui/screens"
 )
 
 func runBenchModelPickerCommand(args []string, stdout io.Writer) (bool, error) {

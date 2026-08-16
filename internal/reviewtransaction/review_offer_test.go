@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/state"
+	"github.com/LimiteRoche/kto-ai/v2/internal/state"
 )
 
 // TestOfferReviewAfterVerifyDisabledKillSwitchReturnsUnavailableBeforeRepoRead

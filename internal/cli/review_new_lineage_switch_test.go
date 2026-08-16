@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+	"github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 )
 
 // TestReviewStartNewLineageSwitchOffCreatesNoV3Entries is task 4.6 (spec

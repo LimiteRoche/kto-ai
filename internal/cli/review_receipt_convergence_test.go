@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+	"github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 )
 
 // contendedReceiptWriter wraps the real receipt writer so that its first call

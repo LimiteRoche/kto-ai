@@ -11,15 +11,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/codex"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/kimi"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/opencode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/backup"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/installcmd"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/planner"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/state"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/system"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/codex"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/kimi"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/opencode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/backup"
+	"github.com/LimiteRoche/kto-ai/v2/internal/installcmd"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/planner"
+	"github.com/LimiteRoche/kto-ai/v2/internal/state"
+	"github.com/LimiteRoche/kto-ai/v2/internal/system"
 )
 
 // missingBinaryLookPath simulates all installable binaries (engram, gga) as

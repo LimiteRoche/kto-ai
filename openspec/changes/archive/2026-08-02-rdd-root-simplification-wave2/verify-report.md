@@ -71,9 +71,9 @@ Every branch tip resolves to the expected commit; `feat/rdd-wave2-bench-journeys
 **Tests**: ✅ Passed — `go test -count=1 ./...` exit 0, 63 packages `ok`, **0 cached**, 0 `FAIL`.
 
 ```text
-ok  github.com/gentleman-programming/gentle-ai/v2/internal/app              17.799s
-ok  github.com/gentleman-programming/gentle-ai/v2/internal/cli             161.682s
-ok  github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction 125.163s
+ok  github.com/LimiteRoche/kto-ai/v2/internal/app              17.799s
+ok  github.com/LimiteRoche/kto-ai/v2/internal/cli             161.682s
+ok  github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction 125.163s
 ```
 
 A first `go test ./...` returned exit 0 entirely from cache (63 cached entries) and was **discarded as non-evidence**; the recorded run is the uncached `-count=1` execution.

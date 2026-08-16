@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+	"github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 )
 
 // WU2 (Wave 7 S6, design decision 4): byte-equivalence exit evidence, Commit

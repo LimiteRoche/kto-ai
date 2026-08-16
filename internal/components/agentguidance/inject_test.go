@@ -8,10 +8,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/catalog"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/opencodedefault"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents"
+	"github.com/LimiteRoche/kto-ai/v2/internal/catalog"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/opencodedefault"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
 )
 
 func TestInjectRoutingInstallsGuidanceForEverySupportedAgent(t *testing.T) {

@@ -1,6 +1,6 @@
 package sddstatus
 
-import "github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+import "github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 
 // legacy_binding_read.go is Wave 4 S5's read-only migration path (design.md
 // decision 2): an existing gentle-ai.sdd-review-binding/v1 file parses via

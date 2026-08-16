@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+	"github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 )
 
 // reviewDefectReportIssuesURL is the single destination every tool-fault

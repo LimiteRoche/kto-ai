@@ -9,11 +9,11 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/claude"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/codex"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/filemerge"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/claude"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/codex"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/filemerge"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
 )
 
 type InjectionResult struct {

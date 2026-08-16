@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/state"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/system"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/update"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/update/upgrade"
+	"github.com/LimiteRoche/kto-ai/v2/internal/state"
+	"github.com/LimiteRoche/kto-ai/v2/internal/system"
+	"github.com/LimiteRoche/kto-ai/v2/internal/update"
+	"github.com/LimiteRoche/kto-ai/v2/internal/update/upgrade"
 )
 
 // stubProfile returns a minimal PlatformProfile for testing.

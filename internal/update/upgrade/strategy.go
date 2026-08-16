@@ -15,10 +15,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/cli"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/engram"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/system"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/update"
+	"github.com/LimiteRoche/kto-ai/v2/internal/cli"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/engram"
+	"github.com/LimiteRoche/kto-ai/v2/internal/system"
+	"github.com/LimiteRoche/kto-ai/v2/internal/update"
 )
 
 // engramDownloadFn is the function used to download the engram binary on the stable channel.

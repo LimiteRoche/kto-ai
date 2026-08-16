@@ -23,13 +23,13 @@
 > The current stable release is [`v2.3.0`](https://github.com/Gentleman-Programming/gentle-ai/releases/tag/v2.3.0). `@latest` is the stable channel:
 >
 > ```bash
-> go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@latest
+> go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@latest
 > ```
 >
 > To opt into the current prerelease, [`v2.4.0-rc.1`](https://github.com/Gentleman-Programming/gentle-ai/releases/tag/v2.4.0-rc.1), install its exact tag:
 >
 > ```bash
-> go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
+> go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
 > ```
 >
 > Use `@main` only for unreleased development changes. See the [full RDD version policy](docs/quickstart.md#version-policy).
@@ -102,7 +102,7 @@ curl -fsSL https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/mai
 **Windows (PowerShell)**
 
 ```powershell
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@latest
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@latest
 ```
 
 > [!WARNING]
@@ -138,7 +138,7 @@ brew install gentle-ai
 **Go install: stable channel (any platform with Go 1.25.10+)**
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@latest
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@latest
 ```
 
 Note the `/v2` in the module path: Go requires it for major version 2 and
@@ -161,7 +161,7 @@ Workspace scope applies to selected agents for agent-scoped files such as system
 curl -fsSL https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/main/scripts/install.sh | bash -s -- --channel beta
 
 # Windows (PowerShell)
-$env:GENTLE_AI_CHANNEL="beta"; go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@main
+$env:GENTLE_AI_CHANNEL="beta"; go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@main
 ```
 
 ### RDD version policy
@@ -173,21 +173,21 @@ The current stable release is [`v2.3.0`](https://github.com/Gentleman-Programmin
 **Stable channel (`@latest`, currently `v2.3.0`)**
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@latest
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@latest
 gentle-ai version
 ```
 
 **Prerelease channel (`v2.4.0-rc.1`)**
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
 gentle-ai version
 ```
 
 **Unreleased development (`main`)**
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@main
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@main
 gentle-ai version
 ```
 

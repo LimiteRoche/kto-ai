@@ -12,8 +12,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/pathquote"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/reviewtransaction"
+	"github.com/LimiteRoche/kto-ai/v2/internal/pathquote"
+	"github.com/LimiteRoche/kto-ai/v2/internal/reviewtransaction"
 )
 
 const SchemaName = "gentle-ai.sdd-status"

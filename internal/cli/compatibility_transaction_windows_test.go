@@ -9,10 +9,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/pipeline"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/planner"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/system"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/pipeline"
+	"github.com/LimiteRoche/kto-ai/v2/internal/planner"
+	"github.com/LimiteRoche/kto-ai/v2/internal/system"
 )
 
 func createWindowsCompatibilityJunction(t *testing.T, link, target string) {

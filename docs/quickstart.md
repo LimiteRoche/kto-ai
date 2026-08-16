@@ -51,10 +51,10 @@
 
 ```powershell
 # Stable channel (`@latest`, currently v2.3.0)
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@latest
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@latest
 
 # Opt-in prerelease (v2.4.0-rc.1)
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
 ```
 
 Both commands use the `/v2` module path. Go requires that suffix for major
@@ -69,14 +69,14 @@ The current stable release is [`v2.3.0`](https://github.com/Gentleman-Programmin
 ### Install the stable channel
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@latest
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@latest
 gentle-ai version
 ```
 
 ### Install the opt-in prerelease
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@v2.4.0-rc.1
 gentle-ai version
 ```
 
@@ -85,7 +85,7 @@ gentle-ai version
 Only use `main` when testing changes that are not part of a release yet:
 
 ```bash
-go install github.com/gentleman-programming/gentle-ai/v2/cmd/gentle-ai@main
+go install github.com/LimiteRoche/kto-ai/v2/cmd/gentle-ai@main
 gentle-ai version
 ```
 

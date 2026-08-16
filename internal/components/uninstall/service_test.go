@@ -10,15 +10,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/claude"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/codex"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/backup"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/communitytool"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/engram"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
-	opencodeactivation "github.com/gentleman-programming/gentle-ai/v2/internal/opencode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/state"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/claude"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/codex"
+	"github.com/LimiteRoche/kto-ai/v2/internal/backup"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/communitytool"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/engram"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
+	opencodeactivation "github.com/LimiteRoche/kto-ai/v2/internal/opencode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/state"
 )
 
 type stubSnapshotter struct{}

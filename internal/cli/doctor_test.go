@@ -14,8 +14,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/engram"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/doctor"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/engram"
+	"github.com/LimiteRoche/kto-ai/v2/internal/doctor"
 )
 
 // --- checkOneTool ---

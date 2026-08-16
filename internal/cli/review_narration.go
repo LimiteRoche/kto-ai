@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/sddstatus"
+	"github.com/LimiteRoche/kto-ai/v2/internal/sddstatus"
 )
 
 // reviewNarrationTier classifies every registered human-facing emission into

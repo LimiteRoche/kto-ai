@@ -4,10 +4,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/opencode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/assets"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/filemerge"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/opencode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/assets"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/filemerge"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
 )
 
 const (

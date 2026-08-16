@@ -7,13 +7,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/claude"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/opencode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/vscode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/skillregistry"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/system"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/claude"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/opencode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/vscode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/skillregistry"
+	"github.com/LimiteRoche/kto-ai/v2/internal/system"
 )
 
 func claudeAdapter() agents.Adapter   { return claude.NewAdapter() }

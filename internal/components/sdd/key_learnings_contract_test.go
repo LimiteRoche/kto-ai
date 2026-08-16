@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/assets"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/components/filemerge"
+	"github.com/LimiteRoche/kto-ai/v2/internal/assets"
+	"github.com/LimiteRoche/kto-ai/v2/internal/components/filemerge"
 )
 
 func TestKeyLearningsClosingContractExistsInSddPhaseCommon(t *testing.T) {

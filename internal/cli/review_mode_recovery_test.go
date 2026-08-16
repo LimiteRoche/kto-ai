@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/state"
+	"github.com/LimiteRoche/kto-ai/v2/internal/state"
 )
 
 // An unreadable kill-switch value is not a disabled switch: it resolves to

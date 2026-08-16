@@ -2,7 +2,7 @@
 
 package cli
 
-import "github.com/gentleman-programming/gentle-ai/v2/internal/model"
+import "github.com/LimiteRoche/kto-ai/v2/internal/model"
 
 func usesAnchoredCompatibilityTransaction() bool {
 	return false

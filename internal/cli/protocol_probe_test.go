@@ -6,12 +6,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/claude"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/gemini"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/kilocode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/openclaw"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/opencode"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/agents/qwen"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/claude"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/gemini"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/kilocode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/openclaw"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/opencode"
+	"github.com/LimiteRoche/kto-ai/v2/internal/agents/qwen"
 )
 
 // TestMain overrides verifyEngramVersion and probeEngramProtocolFlag with

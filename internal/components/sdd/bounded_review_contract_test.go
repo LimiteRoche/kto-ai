@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gentleman-programming/gentle-ai/v2/internal/assets"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/catalog"
-	"github.com/gentleman-programming/gentle-ai/v2/internal/model"
+	"github.com/LimiteRoche/kto-ai/v2/internal/assets"
+	"github.com/LimiteRoche/kto-ai/v2/internal/catalog"
+	"github.com/LimiteRoche/kto-ai/v2/internal/model"
 )
 
 // boundedReviewRequiredClausesFor is agent-parameterized because two of these
