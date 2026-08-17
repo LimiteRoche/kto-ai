@@ -309,8 +309,8 @@ func TestBetaGoInstallMainUpgradeWarnsWhenDestinationDiffers(t *testing.T) {
 	r := update.UpdateResult{
 		Tool: update.ToolInfo{
 			Name:          "gentle-ai",
-			Owner:         "Gentleman-Programming",
-			Repo:          "gentle-ai",
+			Owner:         "LimiteRoche",
+			Repo: "kto-ai",
 			InstallMethod: update.InstallBinary,
 		},
 		LatestVersion: "main@abc1234",

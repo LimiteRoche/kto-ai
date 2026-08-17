@@ -110,8 +110,8 @@ func runStrategy(ctx context.Context, r update.UpdateResult, profile system.Plat
 		return false, err
 	default:
 		return false, &ManualFallbackError{
-			Hint: fmt.Sprintf("upgrade %q: unsupported install method %q — please update manually. See: https://github.com/Gentleman-Programming/%s",
-				r.Tool.Name, method, r.Tool.Repo),
+			Hint: fmt.Sprintf("upgrade %q: unsupported install method %q — please update manually. See: https://github.com/%s/%s",
+				r.Tool.Name, method, r.Tool.Owner, r.Tool.Repo),
 		}
 	}
 }
@@ -619,8 +619,8 @@ func gentleAIWindowsGoInstallProvenanceHint(r update.UpdateResult, destination, 
 
 func isBetaGentleAIUpgrade(r update.UpdateResult) bool {
 	return r.Tool.Name == "gentle-ai" &&
-		strings.EqualFold(r.Tool.Owner, "Gentleman-Programming") &&
-		r.Tool.Repo == "gentle-ai" &&
+		strings.EqualFold(r.Tool.Owner, "LimiteRoche") &&
+		r.Tool.Repo == "kto-ai" &&
 		strings.HasPrefix(strings.TrimSpace(r.LatestVersion), "main@")
 }
 
@@ -629,9 +629,9 @@ func isBetaGentleAIUpgrade(r update.UpdateResult) bool {
 // same risk of writing somewhere the shell does not resolve, so it performs the
 // same non-fatal destination verification.
 func goInstallMainUpgrade(tool update.ToolInfo) error {
-	repository := strings.ToLower(fmt.Sprintf("github.com/%s/%s", strings.TrimSpace(tool.Owner), strings.TrimSpace(tool.Repo)))
+	repository := fmt.Sprintf("github.com/%s/%s", strings.TrimSpace(tool.Owner), strings.TrimSpace(tool.Repo))
 	if repository == "github.com//" {
-		repository = "github.com/gentleman-programming/gentle-ai"
+		repository = "github.com/LimiteRoche/kto-ai"
 	}
 	// Go derives the module path from the repository plus the major-version
 	// suffix: for major 2 and above the module path must end in /vN or the
@@ -724,7 +724,7 @@ func binaryUpgrade(ctx context.Context, r update.UpdateResult, profile system.Pl
 		// with an actionable hint — NOT as UpgradeFailed.
 		hint := r.UpdateHint
 		if hint == "" {
-			hint = fmt.Sprintf("Download manually from https://github.com/Gentleman-Programming/%s/releases", r.Tool.Repo)
+			hint = fmt.Sprintf("Download manually from https://github.com/%s/%s/releases", r.Tool.Owner, r.Tool.Repo)
 		}
 		return &ManualFallbackError{
 			Hint: fmt.Sprintf("upgrade %q on Windows requires manual update: %s", r.Tool.Name, hint),

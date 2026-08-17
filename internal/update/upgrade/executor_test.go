@@ -31,11 +31,17 @@ func linuxProfile() system.PlatformProfile {
 }
 
 func makeResult(name string, status update.UpdateStatus, oldVer, newVer string, method update.InstallMethod) update.UpdateResult {
+	owner := "Gentleman-Programming"
+	repo := name
+	if name == "gentle-ai" {
+		owner = "LimiteRoche"
+		repo = "kto-ai"
+	}
 	return update.UpdateResult{
 		Tool: update.ToolInfo{
 			Name:          name,
-			Owner:         "Gentleman-Programming",
-			Repo:          name,
+			Owner:         owner,
+			Repo:          repo,
 			InstallMethod: method,
 		},
 		InstalledVersion: oldVer,

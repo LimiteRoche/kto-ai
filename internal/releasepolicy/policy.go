@@ -409,7 +409,7 @@ func validateArtifacts(root string, payload []byte, markerTime time.Time, contra
 	brewConfig := extraMap(formula.Extra, "BrewConfig")
 	repository := extraMap(brewConfig, "repository")
 	if extraString(brewConfig, "name") != "gentle-ai" || extraString(brewConfig, "directory") != "Formula" ||
-		extraString(repository, "owner") != "Gentleman-Programming" || extraString(repository, "name") != "homebrew-tap" || extraString(repository, "token") != "{{ .Env.HOMEBREW_TAP_TOKEN }}" {
+		extraString(repository, "owner") != "LimiteRoche" || extraString(repository, "name") != "homebrew-tap" || extraString(repository, "token") != "{{ .Env.HOMEBREW_TAP_TOKEN }}" {
 		return errors.New("resolved Homebrew publisher changed")
 	}
 
@@ -621,7 +621,7 @@ signs:
       - "-c"
       - "signature from gentle-ai release"
       - "-t"
-      - "repo=Gentleman-Programming/gentle-ai;tag={{ .Tag }}"
+      - "repo=LimiteRoche/kto-ai;tag={{ .Tag }}"
     output: true
 changelog:
   sort: asc
@@ -632,12 +632,12 @@ changelog:
       - "^ci:"
 brews:
   - repository:
-      owner: Gentleman-Programming
+      owner: LimiteRoche
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
     directory: Formula
     name: gentle-ai
-    homepage: "https://github.com/Gentleman-Programming/gentle-ai"
+    homepage: "https://github.com/LimiteRoche/kto-ai"
     description: "Gentle-AI — Ecosystem, Frameworks, Workflows for AI coding agents."
     license: "MIT"
     commit_msg_template: "chore: update gentle-ai formula to {{ .Tag }}"

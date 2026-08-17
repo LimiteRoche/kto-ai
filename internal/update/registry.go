@@ -17,8 +17,8 @@ import (
 var Tools = []ToolInfo{
 	{
 		Name:          "gentle-ai",
-		Owner:         "Gentleman-Programming",
-		Repo:          "gentle-ai",
+		Owner:         "LimiteRoche",
+		Repo:          "kto-ai",
 		DetectCmd:     nil, // version comes from build-time ldflags (app.Version)
 		VersionPrefix: "v",
 		// gentle-ai: Homebrew when the package is brew-owned, authenticated binary
